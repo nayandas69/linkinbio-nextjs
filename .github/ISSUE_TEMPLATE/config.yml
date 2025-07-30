@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: 💬 Discussions
+    url: https://github.com/nayandas69/linkinbio-nextjs/discussions
+    about: Ask questions and discuss ideas with the community
+  - name: 📧 Email Support
+    url: mailto:nayanchandradas@hotmail.com
+    about: Contact the maintainer directly for private matters
+  - name: 🐦 Github
+    url: https://github.com/nayandas69
+    about: Follow for updates and quick questions
