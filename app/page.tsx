@@ -239,6 +239,16 @@ export default function HomePage() {
 
       {/* Main content container */}
       <div className="relative z-10 flex items-center justify-center min-h-screen p-4">
+        {/* Hidden Mastodon verification link */}
+        <a 
+          rel="me" 
+          href="https://mastodon.social/@nayandas" 
+          className="sr-only"
+          aria-label="Mastodon profile verification"
+        >
+          Mastodon
+        </a>
+        {/* Main card container with glassmorphism effect */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
