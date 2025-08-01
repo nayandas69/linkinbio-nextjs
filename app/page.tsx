@@ -356,7 +356,7 @@ export default function HomePage() {
                 onMouseEnter={() => setIsAutoPlaying(false)}
                 onMouseLeave={() => setIsAutoPlaying(true)}
               >
-                {blogData.map((blog) => (
+                {blogData.map((blog, index) => (
                   <div key={blog.id} className="w-full flex-shrink-0">
                     <motion.div
                       className={`relative cursor-pointer rounded-2xl overflow-hidden backdrop-blur-md border ${
