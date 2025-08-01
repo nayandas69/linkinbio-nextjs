@@ -123,6 +123,13 @@ export default function RootLayout({
         {/* DNS prefetch for external resources */}
         <link rel="dns-prefetch" href="//www.youtube.com" />
         <link rel="dns-prefetch" href="//github.com" />
+        <link rel="dns-prefetch" href="//mastodon.social" />
+
+        {/* Mastodon verification */}
+        <link rel="me" href="https://mastodon.social/@nayandas" />
+
+        {/* Fediverse author attribution */}
+        <meta name="fediverse:creator" content="@nayandas@mastodon.social" />
 
         {/* Structured data for SEO */}
         <script
