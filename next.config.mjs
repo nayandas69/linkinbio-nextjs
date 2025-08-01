@@ -19,10 +19,21 @@ const nextConfig = {
   // Image optimization configuration
   images: {
     // Define external domains that can serve images
-    domains: [
-      'localhost',
-      'nayanchandradas.com',
-      'socialportal.nayanchandradas.com'
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'linkinbio-nextjs-ashen.vercel.app',
+        port: '',
+        pathname: '/**',
+      },
+      // keep localhost for local dev
+      {
+        protocol: 'http',
+        hostname: 'localhost',
+        port: '',
+        pathname: '/**',
+      },
+      // Add any other external domains you use here
     ],
     
     // Image formats to support
