@@ -376,7 +376,7 @@ export default function HomePage() {
                           fill
                           sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                           className="object-cover transition-transform duration-300 group-hover:scale-105"
-                          priority={true}
+                          priority={index === 0} // ✅ Preload only the first blog image
                         />
                         {/* Play button overlay */}
                         <div className="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300">
