@@ -15,6 +15,8 @@ import type React from "react"
 import type { Metadata } from "next"
 import { Inter, Poppins } from "next/font/google"
 import "./globals.css"
+import { Analytics } from "@vercel/analytics/next"
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 // Font configurations with optimization
 const inter = Inter({
@@ -167,8 +169,9 @@ export default function RootLayout({
           {children}
         </main>
 
-        {/* Analytics script placeholder */}
-        {/* Add your analytics script here (Google Analytics, etc.) */}
+        {/* Vercel Analytics and Speed Insights */}
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   )
