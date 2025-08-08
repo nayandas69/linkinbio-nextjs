@@ -46,8 +46,10 @@ A stunning, modern link-in-bio portfolio built with **Next.js 14**, featuring gl
 - **Gradient backgrounds** with animated elements
 
 ### **Social Integration**
-- **6 Social platforms** in a single row layout
+- **6 Active social platforms** in a single row layout
+- **18+ Extended social icons** available (Facebook, Instagram, X, LinkedIn, TikTok, WhatsApp, Telegram, Snapchat, Bluesky, Mastodon, Tumblr, Messenger)
 - **Custom SVG icons** with platform-specific colors
+- **Easy activation** - simply uncomment desired social platforms
 - **Hover tooltips** with smooth animations
 - **Direct links** to all your social profiles
 - **Accessibility support** with proper ARIA labels
@@ -58,6 +60,20 @@ A stunning, modern link-in-bio portfolio built with **Next.js 14**, featuring gl
 - **Touch gestures** for mobile navigation
 - **Category and duration badges**
 - **Smooth transitions** between slides
+
+### **Analytics & Performance**
+- **Vercel Analytics** integration for visitor tracking
+- **Vercel Speed Insights** for performance monitoring
+- **Real-time performance metrics**
+- **Core Web Vitals** tracking
+- **Zero configuration** analytics setup
+
+### **Environment Configuration**
+- **Environment variables** support with `.env.local`
+- **Google Search Console** verification setup
+- **Secure configuration** management
+- **Development/Production** environment separation
+- **Example configuration** file included
 
 ### **Performance**
 - **Next.js 14** with App Router
@@ -85,18 +101,27 @@ A stunning, modern link-in-bio portfolio built with **Next.js 14**, featuring gl
    npm install
    ```
 
-3. **Add your images**
+3. **Set up environment variables**
+   ```bash
+   # Copy the example environment file
+   cp .env.example .env.local
+   
+   # Edit .env.local with your actual values
+   # Add your Google Search Console verification code
+   ```
+
+4. **Add your images**
    Place your images in the `public/images/` folder:
    - `profile.jpg` - Your profile picture
    - `favicon.jpg` - Website favicon
    - `blog1.png`, `blog2.png`, `blog3.png` - Blog thumbnails
 
-4. **Start development server**
+5. **Start development server**
    ```bash
    npm run dev
    ```
 
-5. **Open your browser**
+6. **Open your browser**
    Navigate to [http://localhost:3000](http://localhost:3000)
 
 ## Tech Stack
@@ -109,6 +134,30 @@ A stunning, modern link-in-bio portfolio built with **Next.js 14**, featuring gl
 | **Tailwind CSS** | 3.3+ | Utility-first CSS framework |
 | **Framer Motion** | 10.16+ | Animation library |
 | **Lucide React** | 0.294+ | Icon library |
+| **Vercel Analytics** | Latest | Visitor tracking |
+| **Vercel Speed Insights** | Latest | Performance monitoring |
+
+## Environment Variables
+
+Create a `.env.local` file in your project root:
+
+```bash
+# Google Search Console Verification Code
+# Get this from Google Search Console -> Settings -> Ownership verification
+GOOGLE_VERIFICATION_CODE=your-google-verification-code-here
+
+# Optional: Additional configuration
+# NEXT_PUBLIC_SITE_URL=https://yourdomain.com
+# NEXT_PUBLIC_AUTHOR_NAME=Your Name
+```
+
+### Getting Google Verification Code:
+1. Go to [Google Search Console](https://search.google.com/search-console)
+2. Add your website property
+3. Go to **Settings** → **Ownership verification**
+4. Choose **HTML tag** method
+5. Copy the `content` value from the meta tag
+6. Add it to your `.env.local` file
 
 ## Customization
 
@@ -131,6 +180,33 @@ const socialLinks = [
   // Add more platforms...
 ]
 ```
+
+### **Extended Social Icons**
+To activate additional social platforms:
+
+1. **Uncomment desired icons** in `components/social-icons.tsx`:
+   ```typescript
+   // Remove /* */ around the icons you want to use
+   export const InstagramIcon: React.FC<IconProps> = ({ size = 24, className = "" }) => (
+     // Icon SVG code
+   )
+   ```
+
+2. **Uncomment imports** in `app/page.tsx`:
+   ```typescript
+   import {
+     InstagramIcon,
+     FacebookIcon,
+     // Add other icons you uncommented
+   } from "@/components/social-icons"
+   ```
+
+3. **Use extended social links array** by replacing `socialLinks` with `extendedSocialLinks`
+
+### **Available Extended Icons:**
+- Facebook, Instagram, X (Twitter), LinkedIn
+- TikTok, WhatsApp, Telegram, Snapchat
+- Bluesky, Mastodon, Tumblr, Messenger
 
 ### **Blog Posts**
 Update the `blogData` array with your content:
@@ -184,7 +260,9 @@ Automatic dark mode support with:
 ### **Vercel (Recommended)**
 1. Push your code to GitHub
 2. Connect your repository to [Vercel](https://vercel.com)
-3. Deploy automatically with zero configuration
+3. Add environment variables in Vercel dashboard
+4. Deploy automatically with zero configuration
+5. **Analytics and Speed Insights** are automatically enabled
 
 ### **Other Platforms**
 - **Netlify**: Build command: `npm run build`, Publish directory: `.next`
@@ -197,6 +275,7 @@ Automatic dark mode support with:
 - **Core Web Vitals**: Optimized for excellent user experience
 - **Image Optimization**: Automatic WebP/AVIF conversion
 - **Code Splitting**: Automatic with Next.js App Router
+- **Real-time Monitoring**: Vercel Speed Insights integration
 
 ## Contributing
 

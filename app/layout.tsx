@@ -13,7 +13,7 @@
 
 import type React from "react"
 import type { Metadata } from "next"
-import { Inter, Poppins } from "next/font/google"
+import { Inter, Poppins } from 'next/font/google'
 import "./globals.css"
 import { Analytics } from "@vercel/analytics/next"
 import { SpeedInsights } from "@vercel/speed-insights/next"
@@ -83,8 +83,9 @@ export const metadata: Metadata = {
   },
 
   // Verification for search engines
+  // Add GOOGLE_VERIFICATION_CODE=your-actual-verification-code to your .env.local file
   verification: {
-    google: "your-google-verification-code", // Replace with actual verification code
+    google: process.env.GOOGLE_VERIFICATION_CODE, // Add your Google verification code to .env.local
   },
 
   // App-specific metadata
@@ -125,6 +126,13 @@ export default function RootLayout({
         {/* DNS prefetch for external resources */}
         <link rel="dns-prefetch" href="//www.youtube.com" />
         <link rel="dns-prefetch" href="//github.com" />
+        <link rel="dns-prefetch" href="//mastodon.social" />
+
+        {/* Mastodon verification */}
+        <link rel="me" href="https://mastodon.social/@nayandas" />
+
+        {/* Fediverse author attribution */}
+        <meta name="fediverse:creator" content="@nayandas@mastodon.social" />
 
         {/* Structured data for SEO */}
         <script
