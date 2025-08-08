@@ -24,6 +24,19 @@
  * - Smooth animations and transitions
  * - Accessibility support with proper ARIA labels
  * - Modern glassmorphism UI design
+ * - Auto-playing blog carousel with manual controls
+ * - Modal for blog details with embedded YouTube videos
+ * - Custom social media icons with hover effects
+ * - Theme persistence using localStorage
+ * - vercel speed-insights and analytics
+ * - Note: This is a client-side component using Next.js App Router.
+ * 
+ * Support me:
+ * If you like my work and want to support me, consider:
+ * - Following me on Patreon: https://patreon.com/NayanDas69
+ * - Subscribing to my YouTube channel: https://youtube.com/@dasnayan69
+ * - Joining my Discord community: https://discord.gg/skHyssu
+ * - Starring this project on GitHub: https://github.com/nayandas69/linkinbio-nextjs
  */
 
 "use client"
@@ -31,8 +44,37 @@
 import { useState, useEffect } from "react"
 import Image from "next/image"
 import { motion, AnimatePresence } from "framer-motion"
-import { ChevronLeft, ChevronRight, X, Play, Sun, Moon } from "lucide-react"
-import { GitHubIcon, PatreonIcon, YouTubeIcon, DiscordIcon, BriefcaseIcon, EmailIcon } from "@/components/social-icons"
+import { ChevronLeft, ChevronRight, X, Play, Sun, Moon } from 'lucide-react'
+import { 
+  GitHubIcon, 
+  PatreonIcon, 
+  YouTubeIcon, 
+  DiscordIcon, 
+  BriefcaseIcon, 
+  EmailIcon 
+} from "@/components/social-icons"
+
+/*
+ * Extended Social Media Icons Import
+ * Uncomment these imports if you want to use additional social media icons
+ * Make sure to also uncomment the corresponding icons in components/social-icons.tsx
+ */
+/*
+import {
+  FacebookIcon,
+  MessengerIcon,
+  SnapchatIcon,
+  TikTokIcon,
+  WhatsAppIcon,
+  BlueskyIcon,
+  MastodonIcon,
+  XIcon,
+  InstagramIcon,
+  TelegramIcon,
+  LinkedInIcon,
+  TumblrIcon,
+} from "@/components/social-icons"
+*/
 
 // Blog data structure - contains all blog post information
 const blogData = [
@@ -68,7 +110,7 @@ const blogData = [
   },
 ]
 
-// Social media links configuration with custom icons
+// Social media links configuration with custom icons (Currently showing 6 icons)
 const socialLinks = [
   {
     name: "GitHub",
@@ -118,6 +160,110 @@ const socialLinks = [
     hoverColor: "hover:from-blue-400 hover:to-cyan-500",
     bgColor: "bg-blue-600",
   },
+/*
+ * Extended Social Links Array
+ * Uncomment this array and replace the current socialLinks array above
+ * to use additional social media platforms. Update URLs with your actual profiles.
+ * Make sure to also uncomment the corresponding icon imports at the top of this file.
+ */
+/*
+  {
+    name: "Instagram",
+    url: "https://instagram.com/yourusername",
+    icon: InstagramIcon,
+    color: "from-pink-500 to-rose-600",
+    hoverColor: "hover:from-pink-400 hover:to-rose-500",
+    bgColor: "bg-pink-600",
+  },
+  {
+    name: "X (Twitter)",
+    url: "https://x.com/yourusername",
+    icon: XIcon,
+    color: "from-gray-800 to-black",
+    hoverColor: "hover:from-gray-700 hover:to-gray-900",
+    bgColor: "bg-black",
+  },
+  {
+    name: "LinkedIn",
+    url: "https://linkedin.com/in/yourusername",
+    icon: LinkedInIcon,
+    color: "from-blue-600 to-blue-800",
+    hoverColor: "hover:from-blue-500 hover:to-blue-700",
+    bgColor: "bg-blue-700",
+  },
+  {
+    name: "Facebook",
+    url: "https://facebook.com/yourusername",
+    icon: FacebookIcon,
+    color: "from-blue-500 to-blue-700",
+    hoverColor: "hover:from-blue-400 hover:to-blue-600",
+    bgColor: "bg-blue-600",
+  },
+  {
+    name: "TikTok",
+    url: "https://tiktok.com/@yourusername",
+    icon: TikTokIcon,
+    color: "from-gray-900 to-black",
+    hoverColor: "hover:from-gray-800 hover:to-gray-900",
+    bgColor: "bg-gray-900",
+  },
+  {
+    name: "WhatsApp",
+    url: "https://wa.me/yourphonenumber",
+    icon: WhatsAppIcon,
+    color: "from-green-500 to-green-700",
+    hoverColor: "hover:from-green-400 hover:to-green-600",
+    bgColor: "bg-green-600",
+  },
+  {
+    name: "Telegram",
+    url: "https://t.me/yourusername",
+    icon: TelegramIcon,
+    color: "from-blue-400 to-blue-600",
+    hoverColor: "hover:from-blue-300 hover:to-blue-500",
+    bgColor: "bg-blue-500",
+  },
+  {
+    name: "Snapchat",
+    url: "https://snapchat.com/add/yourusername",
+    icon: SnapchatIcon,
+    color: "from-yellow-400 to-yellow-600",
+    hoverColor: "hover:from-yellow-300 hover:to-yellow-500",
+    bgColor: "bg-yellow-500",
+  },
+  {
+    name: "Bluesky",
+    url: "https://bsky.app/profile/yourusername",
+    icon: BlueskyIcon,
+    color: "from-sky-400 to-sky-600",
+    hoverColor: "hover:from-sky-300 hover:to-sky-500",
+    bgColor: "bg-sky-500",
+  },
+  {
+    name: "Mastodon",
+    url: "https://mastodon.social/@yourusername",
+    icon: MastodonIcon,
+    color: "from-purple-500 to-purple-700",
+    hoverColor: "hover:from-purple-400 hover:to-purple-600",
+    bgColor: "bg-purple-600",
+  },
+  {
+    name: "Tumblr",
+    url: "https://yourusername.tumblr.com",
+    icon: TumblrIcon,
+    color: "from-indigo-600 to-purple-700",
+    hoverColor: "hover:from-indigo-500 hover:to-purple-600",
+    bgColor: "bg-indigo-700",
+  },
+  {
+    name: "Messenger",
+    url: "https://m.me/yourusername",
+    icon: MessengerIcon,
+    color: "from-blue-500 to-purple-600",
+    hoverColor: "hover:from-blue-400 hover:to-purple-500",
+    bgColor: "bg-blue-600",
+  },
+*/
 ]
 
 export default function HomePage() {
