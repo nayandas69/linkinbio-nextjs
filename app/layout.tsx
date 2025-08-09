@@ -82,11 +82,15 @@ export const metadata: Metadata = {
     },
   },
 
+  // if you have own domain and dns configured, uncomment the following lines
+  // to enable verification for search engines
+  // This is optional and can be configured in your .env.local file
+  // If you don't have a domain, you can skip this part.
   // Verification for search engines
   // Add GOOGLE_VERIFICATION_CODE=your-actual-verification-code to your .env.local file
-  verification: {
-    google: process.env.GOOGLE_VERIFICATION_CODE, // Add your Google verification code to .env.local
-  },
+  // verification: {
+  //  google: process.env.GOOGLE_VERIFICATION_CODE, // Add your Google verification code to .env.local
+  // },
 
   // App-specific metadata
   applicationName: "Nayan Das Portfolio",
@@ -110,6 +114,9 @@ export default function RootLayout({
         {/* Favicon and app icons */}
         <link rel="icon" href="/images/favicon.jpg" type="image/jpeg" />
         <link rel="apple-touch-icon" href="/images/favicon.jpg" />
+
+        {/* Google Search Console Verification */}
+        <meta name="google-site-verification" content={process.env.GOOGLE_VERIFICATION_CODE} />
 
         {/* Theme color for mobile browsers */}
         <meta name="theme-color" content="#ffffff" />
