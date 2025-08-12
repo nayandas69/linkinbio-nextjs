@@ -19,12 +19,14 @@ social presence and latest content.
 
 ## License and Usage
 
-> [!IMPORTANT] This project is licensed under the
+> [!IMPORTANT] 
+> This project is licensed under the
 > [MIT License](https://raw.githubusercontent.com/nayandas69/linkinbio-nextjs/refs/heads/main/LICENSE).
 > You are free to use, modify, and distribute this code for personal and
 > commercial purposes.
 
-> [!CAUTION] Do not remove the author credit comments from the source code
+> [!CAUTION] 
+> Do not remove the author credit comments from the source code
 > files. These credits should remain intact when using or modifying the project.
 
 ### Usage Terms
@@ -68,7 +70,7 @@ social presence and latest content.
 
 - **Auto-playing carousel** with manual navigation
 - **YouTube video integration** with modal popup
-- **Touch gestures** for mobile navigation
+- **Touch gestures** touch/swipe navigation for blog carousel on mobile devices
 - **Category and duration badges**
 - **Smooth transitions** between slides
 
@@ -280,13 +282,15 @@ Automatic dark mode support with:
 
 ## Scripts
 
-| Command              | Description              |
-| -------------------- | ------------------------ |
-| `npm run dev`        | Start development server |
-| `npm run build`      | Build for production     |
-| `npm run start`      | Start production server  |
-| `npm run lint`       | Run ESLint               |
-| `npm run type-check` | Run TypeScript checks    |
+| Command                | Description               |
+| ---------------------- | ------------------------- |
+| `npm run dev`          | Start development server  |
+| `npm run build`        | Build for production      |
+| `npm run start`        | Start production server   |
+| `npm run lint`         | Run ESLint                |
+| `npm run type-check`   | Run TypeScript checks     |
+| `npm run format:check` | Run Prettier checks       |
+| `npm run format`       | Format code with Prettier |
 
 ## Deployment
 

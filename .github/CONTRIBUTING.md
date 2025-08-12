@@ -131,6 +131,8 @@ public/
 
 ### Before Submitting
 
+- [ ] Run Prettier formatting (`npm run format`)
+- [ ] Run ESLint checks (`npm run lint`)
 - [ ] Test in development mode (`npm run dev`)
 - [ ] Build successfully (`npm run build`)
 - [ ] Test in production mode (`npm start`)
