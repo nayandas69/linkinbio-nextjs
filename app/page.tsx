@@ -41,7 +41,9 @@
 
 "use client"
 
-import { useState, useEffect } from "react"
+import type React from "react"
+
+import { useState, useEffect, useRef } from "react"
 import Image from "next/image"
 import { motion, AnimatePresence } from "framer-motion"
 import { ChevronLeft, ChevronRight, X, Play, Sun, Moon } from "lucide-react"
@@ -261,30 +263,89 @@ const socialLinks = [
 
 export default function HomePage() {
   // State management for various UI components
-  const [isDarkMode, setIsDarkMode] = useState(false)
+  // Track both system theme and user override
+  const [systemTheme, setSystemTheme] = useState(false) // System preference
+  const [userThemeOverride, setUserThemeOverride] = useState<boolean | null>(null) // User manual override
   const [currentSlide, setCurrentSlide] = useState(0)
   const [selectedBlog, setSelectedBlog] = useState<(typeof blogData)[0] | null>(null)
   const [isAutoPlaying, setIsAutoPlaying] = useState(true)
 
+  // Touch/swipe handling for mobile
+  const [touchStart, setTouchStart] = useState<number | null>(null)
+  const [touchEnd, setTouchEnd] = useState<number | null>(null)
+  const carouselRef = useRef<HTMLDivElement>(null)
+
+  // Minimum swipe distance (in px) to trigger slide change
+  const minSwipeDistance = 50
+
+  // Computed theme: user override takes precedence, fallback to system
+  const isDarkMode = userThemeOverride !== null ? userThemeOverride : systemTheme
+
   /**
-   * Load theme preference from localStorage on component mount
-   * This ensures the user's theme choice persists across sessions
+   * System Theme Detection and Live Updates
+   * This effect sets up a listener for system theme changes
+   * System theme is always tracked, but user can override it manually
    */
   useEffect(() => {
-    const savedTheme = localStorage.getItem("theme")
-    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches
+    // Function to check and update system theme
+    const updateSystemTheme = () => {
+      const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches
+      setSystemTheme(prefersDark)
 
-    setIsDarkMode(savedTheme === "dark" || (!savedTheme && prefersDark))
-  }, [])
+      // Apply theme to DOM (considering user override)
+      const effectiveTheme = userThemeOverride !== null ? userThemeOverride : prefersDark
+      document.documentElement.classList.toggle("dark", effectiveTheme)
+    }
+
+    // Set initial system theme
+    updateSystemTheme()
+
+    // Create media query listener for live system theme changes
+    const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)")
+
+    // Handle system theme changes
+    const handleSystemThemeChange = (e: MediaQueryListEvent) => {
+      setSystemTheme(e.matches)
+
+      // If user hasn't overridden, apply system theme
+      if (userThemeOverride === null) {
+        document.documentElement.classList.toggle("dark", e.matches)
+      }
+    }
+
+    // Add event listener for system theme changes
+    mediaQuery.addEventListener("change", handleSystemThemeChange)
+
+    // Cleanup function
+    return () => {
+      mediaQuery.removeEventListener("change", handleSystemThemeChange)
+    }
+  }, [userThemeOverride]) // Re-run when user override changes
 
   /**
-   * Save theme preference to localStorage whenever it changes
-   * This allows the theme to persist across browser sessions
+   * Apply theme changes when user override changes
    */
   useEffect(() => {
-    localStorage.setItem("theme", isDarkMode ? "dark" : "light")
-    document.documentElement.classList.toggle("dark", isDarkMode)
-  }, [isDarkMode])
+    const effectiveTheme = userThemeOverride !== null ? userThemeOverride : systemTheme
+    document.documentElement.classList.toggle("dark", effectiveTheme)
+  }, [userThemeOverride, systemTheme])
+
+  /**
+   * Toggle theme function - allows manual user override
+   * Cycles through: System -> Light -> Dark -> System
+   */
+  const toggleTheme = () => {
+    if (userThemeOverride === null) {
+      // Currently following system, switch to opposite of system
+      setUserThemeOverride(!systemTheme)
+    } else if (userThemeOverride === !systemTheme) {
+      // Currently overriding to opposite of system, switch to same as system
+      setUserThemeOverride(systemTheme)
+    } else {
+      // Currently overriding to same as system, go back to following system
+      setUserThemeOverride(null)
+    }
+  }
 
   /**
    * Auto-play functionality for the blog carousel
@@ -299,13 +360,6 @@ export default function HomePage() {
 
     return () => clearInterval(interval)
   }, [isAutoPlaying])
-
-  /**
-   * Toggle between dark and light theme modes
-   */
-  const toggleTheme = () => {
-    setIsDarkMode(!isDarkMode)
-  }
 
   /**
    * Navigate to the next slide in the carousel
@@ -339,6 +393,40 @@ export default function HomePage() {
     document.body.style.overflow = "auto" // Restore background scrolling
   }
 
+  /**
+   * Handle touch start event for swipe detection
+   */
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setTouchEnd(null) // Reset touch end
+    setTouchStart(e.targetTouches[0].clientX)
+  }
+
+  /**
+   * Handle touch move event for swipe detection
+   */
+  const handleTouchMove = (e: React.TouchEvent) => {
+    setTouchEnd(e.targetTouches[0].clientX)
+  }
+
+  /**
+   * Handle touch end event and determine swipe direction
+   */
+  const handleTouchEnd = () => {
+    if (!touchStart || !touchEnd) return
+
+    const distance = touchStart - touchEnd
+    const isLeftSwipe = distance > minSwipeDistance
+    const isRightSwipe = distance < -minSwipeDistance
+
+    if (isLeftSwipe) {
+      // Swipe left - go to next slide
+      nextSlide()
+    } else if (isRightSwipe) {
+      // Swipe right - go to previous slide
+      prevSlide()
+    }
+  }
+
   return (
     <div
       className={`min-h-screen transition-all duration-500 ${
@@ -361,7 +449,7 @@ export default function HomePage() {
         />
       </div>
 
-      {/* Theme toggle button - fixed position for easy access */}
+      {/* Theme Toggle Button - allows manual override and system following */}
       <motion.button
         onClick={toggleTheme}
         className={`fixed right-6 top-6 z-50 rounded-full border p-3 backdrop-blur-md transition-all duration-300 ${
@@ -373,7 +461,7 @@ export default function HomePage() {
         whileTap={{ scale: 0.9 }}
         aria-label="Toggle theme"
       >
-        {isDarkMode ? <Sun size={20} /> : <Moon size={20} />}
+        {isDarkMode ? <Moon size={20} /> : <Sun size={20} />}
       </motion.button>
 
       {/* Main content container */}
@@ -503,9 +591,15 @@ export default function HomePage() {
             </h2>
 
             {/* Blog Carousel Container */}
-            <div className="relative overflow-hidden rounded-2xl">
+            <div
+              className="relative overflow-hidden rounded-2xl"
+              ref={carouselRef}
+              onTouchStart={handleTouchStart}
+              onTouchMove={handleTouchMove}
+              onTouchEnd={handleTouchEnd}
+            >
               <motion.div
-                className="flex transition-transform duration-500 ease-in-out"
+                className="flex touch-pan-y select-none transition-transform duration-500 ease-in-out"
                 style={{ transform: `translateX(-${currentSlide * 100}%)` }}
                 onMouseEnter={() => setIsAutoPlaying(false)}
                 onMouseLeave={() => setIsAutoPlaying(true)}
