@@ -1,6 +1,9 @@
 # Link in Bio - Modern Portfolio
 
-A stunning, modern link-in-bio portfolio built with **Next.js 14**, featuring glassmorphism design, smooth animations, and responsive layout. Perfect for content creators, developers, and professionals who want to showcase their social presence and latest content.
+A stunning, modern link-in-bio portfolio built with **Next.js 14**, featuring
+glassmorphism design, smooth animations, and responsive layout. Perfect for
+content creators, developers, and professionals who want to showcase their
+social presence and latest content.
 
 ## Pre-view
 
@@ -16,13 +19,16 @@ A stunning, modern link-in-bio portfolio built with **Next.js 14**, featuring gl
 
 ## License and Usage
 
-> [!IMPORTANT]
-> This project is licensed under the [MIT License](https://raw.githubusercontent.com/nayandas69/linkinbio-nextjs/refs/heads/main/LICENSE). You are free to use, modify, and distribute this code for personal and commercial purposes.
+> [!IMPORTANT] This project is licensed under the
+> [MIT License](https://raw.githubusercontent.com/nayandas69/linkinbio-nextjs/refs/heads/main/LICENSE).
+> You are free to use, modify, and distribute this code for personal and
+> commercial purposes.
 
-> [!CAUTION]
-> Do not remove the author credit comments from the source code files. These credits should remain intact when using or modifying the project.
+> [!CAUTION] Do not remove the author credit comments from the source code
+> files. These credits should remain intact when using or modifying the project.
 
 ### Usage Terms
+
 - ✅ Free to use and modify
 - ✅ Commercial use allowed
 - ✅ Distribution allowed
@@ -32,6 +38,7 @@ A stunning, modern link-in-bio portfolio built with **Next.js 14**, featuring gl
 ## Author
 
 **Nayan Das**
+
 - GitHub: [@nayandas69](https://github.com/nayandas69)
 - YouTube: [@dasnayan69](https://youtube.com/@dasnayan69)
 - Email: nayanchandradas@hotmail.com
@@ -39,6 +46,7 @@ A stunning, modern link-in-bio portfolio built with **Next.js 14**, featuring gl
 ## Features
 
 ### **Modern Design**
+
 - **Glassmorphism UI** with backdrop blur effects
 - **Dark/Light mode** toggle with system preference detection
 - **Smooth animations** powered by Framer Motion
@@ -46,8 +54,10 @@ A stunning, modern link-in-bio portfolio built with **Next.js 14**, featuring gl
 - **Gradient backgrounds** with animated elements
 
 ### **Social Integration**
+
 - **6 Active social platforms** in a single row layout
-- **18+ Extended social icons** available (Facebook, Instagram, X, LinkedIn, TikTok, WhatsApp, Telegram, Snapchat, Bluesky, Mastodon, Tumblr, Messenger)
+- **18+ Extended social icons** available (Facebook, Instagram, X, LinkedIn,
+  TikTok, WhatsApp, Telegram, Snapchat, Bluesky, Mastodon, Tumblr, Messenger)
 - **Custom SVG icons** with platform-specific colors
 - **Easy activation** - simply uncomment desired social platforms
 - **Hover tooltips** with smooth animations
@@ -55,6 +65,7 @@ A stunning, modern link-in-bio portfolio built with **Next.js 14**, featuring gl
 - **Accessibility support** with proper ARIA labels
 
 ### **Blog Carousel**
+
 - **Auto-playing carousel** with manual navigation
 - **YouTube video integration** with modal popup
 - **Touch gestures** for mobile navigation
@@ -62,6 +73,7 @@ A stunning, modern link-in-bio portfolio built with **Next.js 14**, featuring gl
 - **Smooth transitions** between slides
 
 ### **Analytics & Performance**
+
 - **Vercel Analytics** integration for visitor tracking
 - **Vercel Speed Insights** for performance monitoring
 - **Real-time performance metrics**
@@ -69,6 +81,7 @@ A stunning, modern link-in-bio portfolio built with **Next.js 14**, featuring gl
 - **Zero configuration** analytics setup
 
 ### **Environment Configuration**
+
 - **Environment variables** support with `.env.local`
 - **Google Search Console** verification setup
 - **Secure configuration** management
@@ -76,6 +89,7 @@ A stunning, modern link-in-bio portfolio built with **Next.js 14**, featuring gl
 - **Example configuration** file included
 
 ### **Performance**
+
 - **Next.js 14** with App Router
 - **Image optimization** with Next.js Image component
 - **Font optimization** with Google Fonts
@@ -85,57 +99,61 @@ A stunning, modern link-in-bio portfolio built with **Next.js 14**, featuring gl
 ## Quick Start
 
 ### Prerequisites
+
 - **Node.js** 18.0 or higher
 - **npm** 8.0 or higher
 
 ### Installation
 
 1. **Clone the repository**
+
    ```bash
    git clone https://github.com/nayandas69/linkinbio-nextjs.git
    cd linkinbio-nextjs
    ```
 
 2. **Install dependencies**
+
    ```bash
    npm install
    ```
 
 3. **Set up environment variables**
+
    ```bash
    # Copy the example environment file
    cp .env.example .env.local
-   
+
    # Edit .env.local with your actual values
    # Add your Google Search Console verification code
    ```
 
-4. **Add your images**
-   Place your images in the `public/images/` folder:
+4. **Add your images** Place your images in the `public/images/` folder:
    - `profile.jpg` - Your profile picture
    - `favicon.jpg` - Website favicon
    - `blog1.png`, `blog2.png`, `blog3.png` - Blog thumbnails
 
 5. **Start development server**
+
    ```bash
    npm run dev
    ```
 
-6. **Open your browser**
-   Navigate to [http://localhost:3000](http://localhost:3000)
+6. **Open your browser** Navigate to
+   [http://localhost:3000](http://localhost:3000)
 
 ## Tech Stack
 
-| Technology | Version | Purpose |
-|------------|---------|---------|
-| **Next.js** | 14.0+ | React framework with App Router |
-| **React** | 18.0+ | UI library |
-| **TypeScript** | 5.0+ | Type safety |
-| **Tailwind CSS** | 3.3+ | Utility-first CSS framework |
-| **Framer Motion** | 10.16+ | Animation library |
-| **Lucide React** | 0.294+ | Icon library |
-| **Vercel Analytics** | Latest | Visitor tracking |
-| **Vercel Speed Insights** | Latest | Performance monitoring |
+| Technology                | Version | Purpose                         |
+| ------------------------- | ------- | ------------------------------- |
+| **Next.js**               | 14.0+   | React framework with App Router |
+| **React**                 | 18.0+   | UI library                      |
+| **TypeScript**            | 5.0+    | Type safety                     |
+| **Tailwind CSS**          | 3.3+    | Utility-first CSS framework     |
+| **Framer Motion**         | 10.16+  | Animation library               |
+| **Lucide React**          | 0.294+  | Icon library                    |
+| **Vercel Analytics**      | Latest  | Visitor tracking                |
+| **Vercel Speed Insights** | Latest  | Performance monitoring          |
 
 ## Environment Variables
 
@@ -152,6 +170,7 @@ GOOGLE_VERIFICATION_CODE=your-google-verification-code-here
 ```
 
 ### Getting Google Verification Code:
+
 1. Go to [Google Search Console](https://search.google.com/search-console)
 2. Add your website property
 3. Go to **Settings** → **Ownership verification**
@@ -162,13 +181,17 @@ GOOGLE_VERIFICATION_CODE=your-google-verification-code-here
 ## Customization
 
 ### **Personal Information**
+
 Edit `app/page.tsx` to update:
+
 - Name and bio text
 - Social media links and URLs
 - Blog post data and YouTube video IDs
 
 ### **Social Links**
+
 Update the `socialLinks` array in `app/page.tsx`:
+
 ```typescript
 const socialLinks = [
   {
@@ -182,9 +205,11 @@ const socialLinks = [
 ```
 
 ### **Extended Social Icons**
+
 To activate additional social platforms:
 
 1. **Uncomment desired icons** in `components/social-icons.tsx`:
+
    ```typescript
    // Remove /* */ around the icons you want to use
    export const InstagramIcon: React.FC<IconProps> = ({ size = 24, className = "" }) => (
@@ -193,6 +218,7 @@ To activate additional social platforms:
    ```
 
 2. **Uncomment imports** in `app/page.tsx`:
+
    ```typescript
    import {
      InstagramIcon,
@@ -201,15 +227,19 @@ To activate additional social platforms:
    } from "@/components/social-icons"
    ```
 
-3. **Use extended social links array** by replacing `socialLinks` with `extendedSocialLinks`
+3. **Use extended social links array** by replacing `socialLinks` with
+   `extendedSocialLinks`
 
 ### **Available Extended Icons:**
+
 - Facebook, Instagram, X (Twitter), LinkedIn
 - TikTok, WhatsApp, Telegram, Snapchat
 - Bluesky, Mastodon, Tumblr, Messenger
 
 ### **Blog Posts**
+
 Update the `blogData` array with your content:
+
 ```typescript
 const blogData = [
   {
@@ -226,6 +256,7 @@ const blogData = [
 ```
 
 ### **Styling**
+
 - **Colors**: Modify `tailwind.config.ts` for custom color schemes
 - **Animations**: Adjust Framer Motion settings in components
 - **Layout**: Update responsive breakpoints and spacing
@@ -233,6 +264,7 @@ const blogData = [
 ## Responsive Design
 
 The application is fully responsive with optimized layouts for:
+
 - **Desktop** (1024px+): Full layout with all features
 - **Tablet** (768px-1023px): Adapted spacing and sizing
 - **Mobile** (320px-767px): Touch-optimized interface
@@ -240,6 +272,7 @@ The application is fully responsive with optimized layouts for:
 ## Dark Mode
 
 Automatic dark mode support with:
+
 - **System preference detection**
 - **Manual toggle** with persistent storage
 - **Smooth transitions** between themes
@@ -247,17 +280,18 @@ Automatic dark mode support with:
 
 ## Scripts
 
-| Command | Description |
-|---------|-------------|
-| `npm run dev` | Start development server |
-| `npm run build` | Build for production |
-| `npm run start` | Start production server |
-| `npm run lint` | Run ESLint |
-| `npm run type-check` | Run TypeScript checks |
+| Command              | Description              |
+| -------------------- | ------------------------ |
+| `npm run dev`        | Start development server |
+| `npm run build`      | Build for production     |
+| `npm run start`      | Start production server  |
+| `npm run lint`       | Run ESLint               |
+| `npm run type-check` | Run TypeScript checks    |
 
 ## Deployment
 
 ### **Vercel (Recommended)**
+
 1. Push your code to GitHub
 2. Connect your repository to [Vercel](https://vercel.com)
 3. Add environment variables in Vercel dashboard
@@ -265,6 +299,7 @@ Automatic dark mode support with:
 5. **Analytics and Speed Insights** are automatically enabled
 
 ### **Other Platforms**
+
 - **Netlify**: Build command: `npm run build`, Publish directory: `.next`
 - **Railway**: Supports Next.js out of the box
 - **DigitalOcean**: Use App Platform with Node.js
@@ -297,4 +332,5 @@ Automatic dark mode support with:
 
 ⭐ **Star this repository** if you found it helpful!
 
-🐛 **Found a bug/suggestion?** [Open an issue](https://github.com/nayandas69/linkinbio-nextjs/issues)
+🐛 **Found a bug/suggestion?**
+[Open an issue](https://github.com/nayandas69/linkinbio-nextjs/issues)

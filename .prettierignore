@@ -1,0 +1,17 @@
+# Ignore build and dependency folders
+node_modules
+.next
+dist
+build
+coverage
+
+# Logs
+*.log
+
+# Lockfiles (optional)
+pnpm-lock.yaml
+yarn.lock
+
+# Ignore output folders or misc files
+out
+tmp

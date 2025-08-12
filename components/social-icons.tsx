@@ -5,11 +5,11 @@
  * Email: nayanchandradas@hotmail.com
  * License: MIT
  * Description: Modern Link in Bio portfolio built with Next.js, featuring glassmorphism design and smooth animations.
- * 
+ *
  * IMPORTANT: Please do not remove this author credit comment.
  * You are free to use and modify this code under MIT license,
  * but please keep the author attribution intact.
- * 
+ *
  * Custom Social Media Icons Component
  *
  * This component provides custom-styled social media icons that match
@@ -189,4 +189,3 @@ export const TumblrIcon: React.FC<IconProps> = ({ size = 24, className = "" }) =
   </svg>
 )
 */
-

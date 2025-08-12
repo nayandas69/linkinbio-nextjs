@@ -5,7 +5,7 @@
  * Email: nayanchandradas@hotmail.com
  * License: MIT
  * Description: Modern Link in Bio portfolio built with Next.js, featuring glassmorphism design and smooth animations.
- * 
+ *
  * IMPORTANT: Please do not remove this author credit comment.
  * You are free to use and modify this code under MIT license,
  * but please keep the author attribution intact.
@@ -13,7 +13,7 @@
 
 import type React from "react"
 import type { Metadata } from "next"
-import { Inter, Poppins } from 'next/font/google'
+import { Inter, Poppins } from "next/font/google"
 import "./globals.css"
 import { Analytics } from "@vercel/analytics/next"
 import { SpeedInsights } from "@vercel/speed-insights/next"
@@ -37,7 +37,17 @@ export const metadata: Metadata = {
   title: "Link in Bio | Nayan Das - Portfolio & Social Links",
   description:
     "Crafting Code & Content for a Connected World. Explore my portfolio, latest blog posts, and connect with me across social platforms.",
-  keywords: ["Nayan Das", "portfolio", "web developer", "app developer", "api developer", "content creator", "social links", "blog", "programming"],
+  keywords: [
+    "Nayan Das",
+    "portfolio",
+    "web developer",
+    "app developer",
+    "api developer",
+    "content creator",
+    "social links",
+    "blog",
+    "programming",
+  ],
   authors: [{ name: "Nayan Das", url: "https://github.com/nayandas69" }],
   creator: "Nayan Das",
   publisher: "Nayan Das",
@@ -103,11 +113,7 @@ export const metadata: Metadata = {
  * @param children - Child components to be rendered within the layout
  * @returns JSX element containing the complete HTML document structure
  */
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" className={`${inter.variable} ${poppins.variable}`}>
       <head>
@@ -167,7 +173,7 @@ export default function RootLayout({
         {/* Skip to main content link for accessibility */}
         <a
           href="#main-content"
-          className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 bg-blue-600 text-white px-4 py-2 rounded-md z-50"
+          className="sr-only z-50 rounded-md bg-blue-600 px-4 py-2 text-white focus:not-sr-only focus:absolute focus:left-4 focus:top-4"
         >
           Skip to main content
         </a>

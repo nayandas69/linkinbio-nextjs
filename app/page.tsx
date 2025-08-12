@@ -5,12 +5,12 @@
  * Email: nayanchandradas@hotmail.com
  * License: MIT
  * Description: Modern Link in Bio portfolio built with Next.js, featuring glassmorphism design and smooth animations.
- * 
+ *
  * IMPORTANT: Please do not remove this author credit comment.
  * You are free to use and modify this code under MIT license,
  * but please keep the author attribution intact.
- * 
- * 
+ *
+ *
  * Main Page Component - Link in Bio Portfolio
  *
  * This is the main landing page that displays:
@@ -30,7 +30,7 @@
  * - Theme persistence using localStorage
  * - vercel speed-insights and analytics
  * - Note: This is a client-side component using Next.js App Router.
- * 
+ *
  * Support me:
  * If you like my work and want to support me, consider:
  * - Following me on Patreon: https://patreon.com/NayanDas69
@@ -44,15 +44,8 @@
 import { useState, useEffect } from "react"
 import Image from "next/image"
 import { motion, AnimatePresence } from "framer-motion"
-import { ChevronLeft, ChevronRight, X, Play, Sun, Moon } from 'lucide-react'
-import { 
-  GitHubIcon, 
-  PatreonIcon, 
-  YouTubeIcon, 
-  DiscordIcon, 
-  BriefcaseIcon, 
-  EmailIcon 
-} from "@/components/social-icons"
+import { ChevronLeft, ChevronRight, X, Play, Sun, Moon } from "lucide-react"
+import { GitHubIcon, PatreonIcon, YouTubeIcon, DiscordIcon, BriefcaseIcon, EmailIcon } from "@/components/social-icons"
 
 /*
  * Extended Social Media Icons Import
@@ -160,13 +153,13 @@ const socialLinks = [
     hoverColor: "hover:from-blue-400 hover:to-cyan-500",
     bgColor: "bg-blue-600",
   },
-/*
- * Extended Social Links Array
- * Uncomment this array and replace the current socialLinks array above
- * to use additional social media platforms. Update URLs with your actual profiles.
- * Make sure to also uncomment the corresponding icon imports at the top of this file.
- */
-/*
+  /*
+   * Extended Social Links Array
+   * Uncomment this array and replace the current socialLinks array above
+   * to use additional social media platforms. Update URLs with your actual profiles.
+   * Make sure to also uncomment the corresponding icon imports at the top of this file.
+   */
+  /*
   {
     name: "Instagram",
     url: "https://instagram.com/yourusername",
@@ -355,14 +348,14 @@ export default function HomePage() {
       }`}
     >
       {/* Animated background elements for visual appeal */}
-      <div className="fixed inset-0 overflow-hidden pointer-events-none">
+      <div className="pointer-events-none fixed inset-0 overflow-hidden">
         <div
-          className={`absolute -top-40 -right-40 w-80 h-80 rounded-full blur-3xl opacity-20 ${
+          className={`absolute -right-40 -top-40 h-80 w-80 rounded-full opacity-20 blur-3xl ${
             isDarkMode ? "bg-purple-500" : "bg-blue-400"
           }`}
         />
         <div
-          className={`absolute -bottom-40 -left-40 w-80 h-80 rounded-full blur-3xl opacity-20 ${
+          className={`absolute -bottom-40 -left-40 h-80 w-80 rounded-full opacity-20 blur-3xl ${
             isDarkMode ? "bg-pink-500" : "bg-purple-400"
           }`}
         />
@@ -371,10 +364,10 @@ export default function HomePage() {
       {/* Theme toggle button - fixed position for easy access */}
       <motion.button
         onClick={toggleTheme}
-        className={`fixed top-6 right-6 z-50 p-3 rounded-full backdrop-blur-md border transition-all duration-300 ${
+        className={`fixed right-6 top-6 z-50 rounded-full border p-3 backdrop-blur-md transition-all duration-300 ${
           isDarkMode
-            ? "bg-white/10 border-white/20 text-white hover:bg-white/20"
-            : "bg-white/30 border-white/40 text-gray-800 hover:bg-white/40"
+            ? "border-white/20 bg-white/10 text-white hover:bg-white/20"
+            : "border-white/40 bg-white/30 text-gray-800 hover:bg-white/40"
         }`}
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
@@ -384,11 +377,11 @@ export default function HomePage() {
       </motion.button>
 
       {/* Main content container */}
-      <div className="relative z-10 flex items-center justify-center min-h-screen p-4">
+      <div className="relative z-10 flex min-h-screen items-center justify-center p-4">
         {/* Hidden Mastodon verification link */}
-        <a 
-          rel="me" 
-          href="https://mastodon.social/@nayandas" 
+        <a
+          rel="me"
+          href="https://mastodon.social/@nayandas"
           className="sr-only"
           aria-label="Mastodon profile verification"
         >
@@ -399,20 +392,20 @@ export default function HomePage() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className={`w-full max-w-md p-6 sm:p-8 rounded-3xl backdrop-blur-xl border shadow-2xl ${
-            isDarkMode ? "bg-white/5 border-white/10" : "bg-white/20 border-white/30"
+          className={`w-full max-w-md rounded-3xl border p-6 shadow-2xl backdrop-blur-xl sm:p-8 ${
+            isDarkMode ? "border-white/10 bg-white/5" : "border-white/30 bg-white/20"
           }`}
         >
           {/* Profile Section */}
           <motion.div
-            className="text-center mb-6 sm:mb-8"
+            className="mb-6 text-center sm:mb-8"
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ delay: 0.2, duration: 0.5 }}
           >
             {/* Profile image with hover animation */}
             <motion.div
-              className="relative w-20 h-20 sm:w-24 sm:h-24 mx-auto mb-4"
+              className="relative mx-auto mb-4 h-20 w-20 sm:h-24 sm:w-24"
               whileHover={{ scale: 1.05 }}
               transition={{ type: "spring", stiffness: 300 }}
             >
@@ -421,12 +414,12 @@ export default function HomePage() {
                 alt="Nayan Das Profile Picture"
                 fill
                 sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                className="rounded-full object-cover border-4 border-white/30"
+                className="rounded-full border-4 border-white/30 object-cover"
                 priority
               />
               {/* Animated ring around profile image */}
               <div
-                className={`absolute inset-0 rounded-full border-2 animate-pulse ${
+                className={`absolute inset-0 animate-pulse rounded-full border-2 ${
                   isDarkMode ? "border-purple-400/50" : "border-blue-400/50"
                 }`}
               />
@@ -434,7 +427,7 @@ export default function HomePage() {
 
             {/* Name and bio text */}
             <motion.h1
-              className={`text-xl sm:text-2xl font-bold mb-2 ${isDarkMode ? "text-white" : "text-gray-800"}`}
+              className={`mb-2 text-xl font-bold sm:text-2xl ${isDarkMode ? "text-white" : "text-gray-800"}`}
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3, duration: 0.5 }}
@@ -442,7 +435,7 @@ export default function HomePage() {
               Nayan Das
             </motion.h1>
             <motion.p
-              className={`text-xs sm:text-sm opacity-80 px-2 ${isDarkMode ? "text-gray-300" : "text-gray-600"}`}
+              className={`px-2 text-xs opacity-80 sm:text-sm ${isDarkMode ? "text-gray-300" : "text-gray-600"}`}
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4, duration: 0.5 }}
@@ -458,52 +451,38 @@ export default function HomePage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5, duration: 0.5 }}
           >
-            <div className="grid grid-cols-6 gap-2 sm:gap-3 max-w-xs sm:max-w-sm mx-auto">
+            <div className="mx-auto grid max-w-xs grid-cols-6 gap-2 sm:max-w-sm sm:gap-3">
               {socialLinks.map((link, index) => (
                 <motion.a
                   key={link.name}
                   href={link.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`group relative ${link.bgColor} text-white transition-all duration-300 
-        flex items-center justify-center rounded-full backdrop-blur-sm border border-white/10
-        w-10 h-10 sm:w-12 sm:h-12 md:w-14 md:h-14
-        hover:scale-110 hover:shadow-lg hover:-translate-y-1
-        active:scale-95 active:translate-y-0
-        focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-transparent`}
-                  whileHover={{ 
-                    scale: 1.1, 
+                  className={`group relative ${link.bgColor} flex h-10 w-10 items-center justify-center rounded-full border border-white/10 text-white backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:scale-110 hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-white/50 focus:ring-offset-2 focus:ring-offset-transparent active:translate-y-0 active:scale-95 sm:h-12 sm:w-12 md:h-14 md:w-14`}
+                  whileHover={{
+                    scale: 1.1,
                     y: -4,
-                    transition: { type: "spring", stiffness: 400, damping: 10 }
+                    transition: { type: "spring", stiffness: 400, damping: 10 },
                   }}
-                  whileTap={{ 
+                  whileTap={{
                     scale: 0.95,
                     y: 0,
-                    transition: { type: "spring", stiffness: 400, damping: 10 }
+                    transition: { type: "spring", stiffness: 400, damping: 10 },
                   }}
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.6 + index * 0.1, duration: 0.5 }}
                   aria-label={`Visit ${link.name}`}
                 >
-                  <link.icon 
-                    size={16} 
-                    className="drop-shadow-sm sm:w-[18px] sm:h-[18px] md:w-[20px] md:h-[20px]" 
-                  />
+                  <link.icon size={16} className="drop-shadow-sm sm:h-[18px] sm:w-[18px] md:h-[20px] md:w-[20px]" />
 
                   {/* Enhanced tooltip with better positioning */}
                   <div
-                    className={`absolute -top-10 sm:-top-12 left-1/2 transform -translate-x-1/2 px-2 py-1 sm:px-3 sm:py-2 
-        rounded-lg text-xs font-medium opacity-0 group-hover:opacity-100 transition-all duration-300
-        ${isDarkMode ? "bg-gray-800 text-white" : "bg-white text-gray-800"} 
-        shadow-xl border backdrop-blur-sm z-20 whitespace-nowrap pointer-events-none
-        scale-0 group-hover:scale-100 origin-bottom`}
+                    className={`absolute -top-10 left-1/2 -translate-x-1/2 transform rounded-lg px-2 py-1 text-xs font-medium opacity-0 transition-all duration-300 group-hover:opacity-100 sm:-top-12 sm:px-3 sm:py-2 ${isDarkMode ? "bg-gray-800 text-white" : "bg-white text-gray-800"} pointer-events-none z-20 origin-bottom scale-0 whitespace-nowrap border shadow-xl backdrop-blur-sm group-hover:scale-100`}
                   >
                     {link.name}
                     <div
-                      className={`absolute top-full left-1/2 transform -translate-x-1/2 w-0 h-0 
-          border-l-[4px] border-r-[4px] border-t-[4px] border-transparent
-          ${isDarkMode ? "border-t-gray-800" : "border-t-white"}`}
+                      className={`absolute left-1/2 top-full h-0 w-0 -translate-x-1/2 transform border-l-[4px] border-r-[4px] border-t-[4px] border-transparent ${isDarkMode ? "border-t-gray-800" : "border-t-white"}`}
                     />
                   </div>
                 </motion.a>
@@ -517,7 +496,9 @@ export default function HomePage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.8, duration: 0.5 }}
           >
-            <h2 className={`text-lg sm:text-xl font-semibold mb-4 text-center ${isDarkMode ? "text-white" : "text-gray-800"}`}>
+            <h2
+              className={`mb-4 text-center text-lg font-semibold sm:text-xl ${isDarkMode ? "text-white" : "text-gray-800"}`}
+            >
               Latest Blogs
             </h2>
 
@@ -532,17 +513,17 @@ export default function HomePage() {
                 {blogData.map((blog, index) => (
                   <div key={blog.id} className="w-full flex-shrink-0">
                     <motion.div
-                      className={`relative cursor-pointer rounded-2xl overflow-hidden backdrop-blur-md border ${
+                      className={`relative cursor-pointer overflow-hidden rounded-2xl border backdrop-blur-md ${
                         isDarkMode
-                          ? "bg-white/5 border-white/10 hover:bg-white/10"
-                          : "bg-white/30 border-white/40 hover:bg-white/40"
+                          ? "border-white/10 bg-white/5 hover:bg-white/10"
+                          : "border-white/40 bg-white/30 hover:bg-white/40"
                       } transition-all duration-300`}
                       onClick={() => openBlogModal(blog)}
                       whileHover={{ scale: 1.02 }}
                       whileTap={{ scale: 0.98 }}
                     >
                       {/* Blog thumbnail with play button overlay */}
-                      <div className="relative h-40 sm:h-48 overflow-hidden">
+                      <div className="relative h-40 overflow-hidden sm:h-48">
                         <Image
                           src={blog.thumbnail || "/placeholder.svg"}
                           alt={blog.title}
@@ -552,14 +533,14 @@ export default function HomePage() {
                           priority={index === 0} // ✅ Preload only the first blog image
                         />
                         {/* Play button overlay */}
-                        <div className="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 hover:opacity-100 transition-opacity duration-300">
-                          <div className="bg-white/90 rounded-full p-2 sm:p-3">
-                            <Play size={20} className="text-gray-800 ml-1 sm:w-6 sm:h-6" />
+                        <div className="absolute inset-0 flex items-center justify-center bg-black/20 opacity-0 transition-opacity duration-300 hover:opacity-100">
+                          <div className="rounded-full bg-white/90 p-2 sm:p-3">
+                            <Play size={20} className="ml-1 text-gray-800 sm:h-6 sm:w-6" />
                           </div>
                         </div>
                         {/* Category badge */}
                         <div
-                          className={`absolute top-2 sm:top-3 left-2 sm:left-3 px-2 py-1 rounded-full text-xs font-medium ${
+                          className={`absolute left-2 top-2 rounded-full px-2 py-1 text-xs font-medium sm:left-3 sm:top-3 ${
                             isDarkMode ? "bg-black/50 text-white" : "bg-white/80 text-gray-800"
                           }`}
                         >
@@ -567,7 +548,7 @@ export default function HomePage() {
                         </div>
                         {/* Duration badge */}
                         <div
-                          className={`absolute top-2 sm:top-3 right-2 sm:right-3 px-2 py-1 rounded-full text-xs font-medium ${
+                          className={`absolute right-2 top-2 rounded-full px-2 py-1 text-xs font-medium sm:right-3 sm:top-3 ${
                             isDarkMode ? "bg-black/50 text-white" : "bg-white/80 text-gray-800"
                           }`}
                         >
@@ -578,14 +559,14 @@ export default function HomePage() {
                       {/* Blog content */}
                       <div className="p-3 sm:p-4">
                         <h3
-                          className={`font-semibold text-sm mb-2 line-clamp-2 ${
+                          className={`mb-2 line-clamp-2 text-sm font-semibold ${
                             isDarkMode ? "text-white" : "text-gray-800"
                           }`}
                         >
                           {blog.title}
                         </h3>
                         <p
-                          className={`text-xs opacity-70 line-clamp-2 ${
+                          className={`line-clamp-2 text-xs opacity-70 ${
                             isDarkMode ? "text-gray-300" : "text-gray-600"
                           }`}
                         >
@@ -600,30 +581,30 @@ export default function HomePage() {
               {/* Carousel navigation buttons */}
               <button
                 onClick={prevSlide}
-                className={`absolute left-2 top-1/2 transform -translate-y-1/2 p-1.5 sm:p-2 rounded-full backdrop-blur-md border transition-all duration-300 ${
+                className={`absolute left-2 top-1/2 -translate-y-1/2 transform rounded-full border p-1.5 backdrop-blur-md transition-all duration-300 sm:p-2 ${
                   isDarkMode
-                    ? "bg-white/10 border-white/20 text-white hover:bg-white/20"
-                    : "bg-white/30 border-white/40 text-gray-800 hover:bg-white/40"
+                    ? "border-white/20 bg-white/10 text-white hover:bg-white/20"
+                    : "border-white/40 bg-white/30 text-gray-800 hover:bg-white/40"
                 }`}
                 aria-label="Previous blog"
               >
-                <ChevronLeft size={14} className="sm:w-4 sm:h-4" />
+                <ChevronLeft size={14} className="sm:h-4 sm:w-4" />
               </button>
               <button
                 onClick={nextSlide}
-                className={`absolute right-2 top-1/2 transform -translate-y-1/2 p-1.5 sm:p-2 rounded-full backdrop-blur-md border transition-all duration-300 ${
+                className={`absolute right-2 top-1/2 -translate-y-1/2 transform rounded-full border p-1.5 backdrop-blur-md transition-all duration-300 sm:p-2 ${
                   isDarkMode
-                    ? "bg-white/10 border-white/20 text-white hover:bg-white/20"
-                    : "bg-white/30 border-white/40 text-gray-800 hover:bg-white/40"
+                    ? "border-white/20 bg-white/10 text-white hover:bg-white/20"
+                    : "border-white/40 bg-white/30 text-gray-800 hover:bg-white/40"
                 }`}
                 aria-label="Next blog"
               >
-                <ChevronRight size={14} className="sm:w-4 sm:h-4" />
+                <ChevronRight size={14} className="sm:h-4 sm:w-4" />
               </button>
             </div>
 
             {/* Carousel dots indicator */}
-            <div className="flex justify-center mt-3 sm:mt-4 space-x-2">
+            <div className="mt-3 flex justify-center space-x-2 sm:mt-4">
               {blogData.map((_, index) => (
                 <button
                   key={index}
@@ -631,7 +612,7 @@ export default function HomePage() {
                     setCurrentSlide(index)
                     setIsAutoPlaying(false)
                   }}
-                  className={`w-2 h-2 rounded-full transition-all duration-300 ${
+                  className={`h-2 w-2 rounded-full transition-all duration-300 ${
                     index === currentSlide
                       ? isDarkMode
                         ? "bg-white"
@@ -655,25 +636,25 @@ export default function HomePage() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
+            className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 p-4 backdrop-blur-sm"
             onClick={closeBlogModal}
           >
             <motion.div
               initial={{ opacity: 0, scale: 0.9, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
-              className={`relative w-full max-w-4xl max-h-[90vh] overflow-y-auto rounded-3xl backdrop-blur-xl border shadow-2xl ${
-                isDarkMode ? "bg-gray-900/90 border-white/10" : "bg-white/90 border-white/30"
+              className={`relative max-h-[90vh] w-full max-w-4xl overflow-y-auto rounded-3xl border shadow-2xl backdrop-blur-xl ${
+                isDarkMode ? "border-white/10 bg-gray-900/90" : "border-white/30 bg-white/90"
               }`}
               onClick={(e) => e.stopPropagation()}
             >
               {/* Modal close button */}
               <button
                 onClick={closeBlogModal}
-                className={`absolute top-4 right-4 z-10 p-2 rounded-full backdrop-blur-md border transition-all duration-300 ${
+                className={`absolute right-4 top-4 z-10 rounded-full border p-2 backdrop-blur-md transition-all duration-300 ${
                   isDarkMode
-                    ? "bg-white/10 border-white/20 text-white hover:bg-white/20"
-                    : "bg-white/30 border-white/40 text-gray-800 hover:bg-white/40"
+                    ? "border-white/20 bg-white/10 text-white hover:bg-white/20"
+                    : "border-white/40 bg-white/30 text-gray-800 hover:bg-white/40"
                 }`}
                 aria-label="Close modal"
               >
@@ -683,7 +664,7 @@ export default function HomePage() {
               <div className="p-4 sm:p-6">
                 {/* Modal header */}
                 <div className="mb-4 sm:mb-6">
-                  <h2 className={`text-xl sm:text-2xl font-bold mb-2 ${isDarkMode ? "text-white" : "text-gray-800"}`}>
+                  <h2 className={`mb-2 text-xl font-bold sm:text-2xl ${isDarkMode ? "text-white" : "text-gray-800"}`}>
                     {selectedBlog.title}
                   </h2>
                   <p className={`text-sm opacity-70 ${isDarkMode ? "text-gray-300" : "text-gray-600"}`}>
@@ -703,11 +684,11 @@ export default function HomePage() {
                 </div>
 
                 {/* Video embed */}
-                <div className="relative w-full h-0 pb-[56.25%] mb-4 sm:mb-6 rounded-2xl overflow-hidden">
+                <div className="relative mb-4 h-0 w-full overflow-hidden rounded-2xl pb-[56.25%] sm:mb-6">
                   <iframe
                     src={`https://www.youtube.com/embed/${selectedBlog.videoId}`}
                     title={selectedBlog.title}
-                    className="absolute inset-0 w-full h-full"
+                    className="absolute inset-0 h-full w-full"
                     frameBorder="0"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
@@ -716,7 +697,9 @@ export default function HomePage() {
 
                 {/* Blog description */}
                 <div className={`prose max-w-none ${isDarkMode ? "prose-invert" : ""}`}>
-                  <p className={`text-sm sm:text-base leading-relaxed ${isDarkMode ? "text-gray-300" : "text-gray-700"}`}>
+                  <p
+                    className={`text-sm leading-relaxed sm:text-base ${isDarkMode ? "text-gray-300" : "text-gray-700"}`}
+                  >
                     {selectedBlog.description}
                   </p>
                 </div>

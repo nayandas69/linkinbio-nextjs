@@ -1,17 +1,21 @@
 ## Pull Request
 
 ### Description
+
 Brief description of what this PR does.
 
 ### Related Issue
+
 Fixes #(issue number)
 
 ### Type of Change
+
 Please delete options that are not relevant.
 
 - [ ] 🐛 Bug fix (non-breaking change which fixes an issue)
 - [ ] ✨ New feature (non-breaking change which adds functionality)
-- [ ] 💥 Breaking change (fix or feature that would cause existing functionality to not work as expected)
+- [ ] 💥 Breaking change (fix or feature that would cause existing functionality
+      to not work as expected)
 - [ ] 📚 Documentation update
 - [ ] 🎨 Style/UI changes
 - [ ] ♻️ Code refactoring
@@ -19,6 +23,7 @@ Please delete options that are not relevant.
 - [ ] 🔧 Build/CI changes
 
 ### How Has This Been Tested?
+
 Please describe the tests that you ran to verify your changes.
 
 - [ ] Local development testing
@@ -28,21 +33,26 @@ Please describe the tests that you ran to verify your changes.
 - [ ] Performance testing
 
 **Test Configuration:**
-- Node.js version: 
-- npm version: 
-- Browser(s): 
-- OS: 
+
+- Node.js version:
+- npm version:
+- Browser(s):
+- OS:
 
 ### 📸 Screenshots (if applicable)
+
 Add screenshots to help explain your changes.
 
 **Before:**
+
 <!-- Add before screenshot -->
 
 **After:**
+
 <!-- Add after screenshot -->
 
 ### Checklist
+
 Please check all that apply:
 
 - [ ] My code follows the style guidelines of this project
@@ -54,23 +64,29 @@ Please check all that apply:
 - [ ] Any dependent changes have been merged and published
 
 ### Technical Details
+
 **Components/Files Changed:**
+
 - [ ] `app/page.tsx`
 - [ ] `components/social-icons.tsx`
 - [ ] `app/globals.css`
 - [ ] `tailwind.config.ts`
 - [ ] `next.config.mjs`
-- [ ] Other: ___________
+- [ ] Other: \***\*\_\_\_\*\***
 
 **Breaking Changes:**
+
 - [ ] None
 - [ ] Yes (please describe below)
 
 ### Additional Notes
+
 Add any additional notes, concerns, or questions for reviewers.
 
 ### What's Next?
+
 What should happen after this PR is merged?
+
 - [ ] Deploy to production
 - [ ] Update documentation
 - [ ] Create follow-up issues
@@ -79,6 +95,7 @@ What should happen after this PR is merged?
 ---
 
 **For Maintainers:**
+
 - [ ] Code review completed
 - [ ] Tests passing
 - [ ] Documentation updated

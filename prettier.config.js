@@ -39,16 +39,6 @@ module.exports = {
   // Include parentheses around a sole arrow function parameter
   arrowParens: "always",
 
-  // Format only a segment of a file
-  rangeStart: 0,
-  rangeEnd: Number.POSITIVE_INFINITY,
-
-  // Specify which parser to use
-  parser: undefined,
-
-  // Specify the file path to use to infer which parser to use
-  filepath: undefined,
-
   // Prettier can restrict itself to only format files that contain a special comment
   requirePragma: false,
 

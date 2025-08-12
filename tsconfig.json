@@ -24,11 +24,7 @@
     "paths": {
       "@/*": ["./*"],
       "@/components/*": ["components/*"],
-      "@/lib/*": ["lib/*"],
-      "@/hooks/*": ["hooks/*"],
-      "@/utils/*": ["utils/*"],
-      "@/types/*": ["types/*"],
-      "@/styles/*": ["styles/*"],
+      "@/app/*": ["app/*"],
       "@/public/*": ["public/*"]
     },
     "plugins": [
