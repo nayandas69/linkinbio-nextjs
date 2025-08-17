@@ -204,7 +204,7 @@ Contributors will be:
 ## License
 
 By contributing, you agree that your contributions will be licensed under the
-MIT License.
+[Custom License](https://raw.githubusercontent.com/nayandas69/linkinbio-nextjs/refs/heads/main/LICENSE).
 
 ---
 

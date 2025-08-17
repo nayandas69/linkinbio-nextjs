@@ -19,23 +19,14 @@ social presence and latest content.
 
 ## License and Usage
 
-> [!IMPORTANT] 
-> This project is licensed under the
-> [MIT License](https://raw.githubusercontent.com/nayandas69/linkinbio-nextjs/refs/heads/main/LICENSE).
-> You are free to use, modify, and distribute this code for personal and
-> commercial purposes.
+This project is licensed under a **Custom License**.
 
-> [!CAUTION] 
-> Do not remove the author credit comments from the source code
-> files. These credits should remain intact when using or modifying the project.
-
-### Usage Terms
-
-- ✅ Free to use and modify
+- ✅ Free to use, modify, and distribute
 - ✅ Commercial use allowed
-- ✅ Distribution allowed
 - ❌ Do not remove author credits from code
 - ❌ Do not claim original authorship
+
+> Full license terms are in the [LICENSE](https://raw.githubusercontent.com/nayandas69/linkinbio-nextjs/refs/heads/main/LICENSE) file.
 
 ## Author
 
