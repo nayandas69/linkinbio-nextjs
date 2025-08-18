@@ -21,20 +21,21 @@ social presence and latest content.
 
 This project is licensed under a **Custom License**.
 
-- ✅ Free to use, modify, and distribute
-- ✅ Commercial use allowed
-- ❌ Do not remove author credits from code
-- ❌ Do not claim original authorship
+* ✅ Free to use, modify, and distribute
+* ✅ Personal and non-commercial use allowed
+* ❌ **Commercial use or resale requires author’s permission**
+* ❌ Do not remove author credits from the source code
+* ❌ Do not claim original authorship or misrepresent attribution
 
-> Full license terms are in the [LICENSE](https://raw.githubusercontent.com/nayandas69/linkinbio-nextjs/refs/heads/main/LICENSE) file.
+> Full license terms are available in the [LICENSE](https://raw.githubusercontent.com/nayandas69/linkinbio-nextjs/refs/heads/main/LICENSE) file.
 
 ## Author
 
 **Nayan Das**
 
-- GitHub: [@nayandas69](https://github.com/nayandas69)
-- YouTube: [@dasnayan69](https://youtube.com/@dasnayan69)
-- Email: nayanchandradas@hotmail.com
+* GitHub: [@nayandas69](https://github.com/nayandas69)
+* YouTube: [@dasnayan69](https://youtube.com/@dasnayan69)
+* Email: [nayanchandradas@hotmail.com](mailto:nayanchandradas@hotmail.com)
 
 ## Features
 
@@ -329,3 +330,16 @@ Automatic dark mode support with:
 
 🐛 **Found a bug/suggestion?**
 [Open an issue](https://github.com/nayandas69/linkinbio-nextjs/issues)
+
+---
+
+## 💖 Support This Project
+
+If you find this project helpful and want to support its ongoing development:
+
+> 🛒 **Buy the project** or support me on **Patreon** to help keep it alive and maintained.
+
+🎯 **Patreon**: [https://www.patreon.com/nayandas69](https://www.patreon.com/nayandas69)
+📧 Or contact me directly: [nayanchandradas@hotmail.com](mailto:nayanchandradas@hotmail.com)
+
+Your support means a lot! 🙏

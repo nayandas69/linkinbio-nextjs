@@ -8,21 +8,26 @@ in the Software without restriction, including without limitation the rights
 to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
 copies of the Software, subject to the following conditions:
 
-1. **Attribution Required**:  
+1. **Attribution Required**
    The above copyright notice and this permission notice shall be included in
    all copies or substantial portions of the Software.
 
-2. **Author Credit Must Remain in Source Code**:  
+2. **Author Credit Must Remain in Source Code**
    Any visible author credit comments in the source code (e.g., in headers or
-   file comments) **must not be removed**, replaced, or altered.  
+   file comments) **must not be removed**, replaced, or altered.
    These credits must remain intact in all modified or distributed versions.
 
-3. **No False Attribution**:  
+3. **No False Attribution**
    You may not misrepresent the origin of the Software by claiming you are the
    original author. If you modify the Software, you must clearly state that
-   your version is a derivative of the original work by Nayan Das.
+   your version is a derivative of the original work by **Nayan Das**.
 
-4. **Disclaimer**:  
+4. **Commercial Sale Requires Permission**
+   You **may not sell** this project, or any part of it (original or modified),
+   without **explicit written permission** from the original author (**Nayan Das**).
+   To obtain permission, please contact: `nayanchandradas@hotmail.com`
+
+5. **Disclaimer**
    THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
    IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
