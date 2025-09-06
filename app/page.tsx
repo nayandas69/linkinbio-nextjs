@@ -23,6 +23,7 @@
  * - Responsive design for all screen sizes
  * - Smooth animations and transitions
  * - Accessibility support with proper ARIA labels
+ * - Verified badge with tooltip
  * - Modern glassmorphism UI design
  * - Auto-playing blog carousel with manual controls
  * - Modal for blog details with embedded YouTube videos
@@ -47,7 +48,15 @@ import { useState, useEffect, useRef } from "react"
 import Image from "next/image"
 import { motion, AnimatePresence } from "framer-motion"
 import { ChevronLeft, ChevronRight, X, Play, Sun, Moon } from "lucide-react"
-import { GitHubIcon, PatreonIcon, YouTubeIcon, DiscordIcon, BriefcaseIcon, EmailIcon } from "@/components/social-icons"
+import {
+  GitHubIcon,
+  PatreonIcon,
+  YouTubeIcon,
+  DiscordIcon,
+  BriefcaseIcon,
+  EmailIcon,
+  VerificationBadgeIcon,
+} from "@/components/social-icons"
 
 /*
  * Extended Social Media Icons Import
@@ -520,7 +529,28 @@ export default function HomePage() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3, duration: 0.5 }}
             >
-              Nayan Das
+              <span className="flex items-center justify-center gap-2">
+                Nayan Das
+                <div className="group relative">
+                  <VerificationBadgeIcon
+                    size={20}
+                    className="cursor-pointer transition-transform duration-200 hover:scale-110"
+                  />
+                  {/* Verification tooltip */}
+                  <div
+                    className={`absolute -top-12 left-1/2 -translate-x-1/2 transform rounded-lg px-3 py-2 text-xs font-medium opacity-0 transition-all duration-300 group-hover:opacity-100 ${
+                      isDarkMode ? "bg-gray-800 text-white" : "bg-white text-gray-800"
+                    } pointer-events-none z-20 origin-bottom scale-0 whitespace-nowrap border shadow-xl backdrop-blur-sm group-hover:scale-100`}
+                  >
+                    Profile Nayan Das identity verified
+                    <div
+                      className={`absolute left-1/2 top-full h-0 w-0 -translate-x-1/2 transform border-l-[4px] border-r-[4px] border-t-[4px] border-transparent ${
+                        isDarkMode ? "border-t-gray-800" : "border-t-white"
+                      }`}
+                    />
+                  </div>
+                </div>
+              </span>
             </motion.h1>
             <motion.p
               className={`px-2 text-xs opacity-80 sm:text-sm ${isDarkMode ? "text-gray-300" : "text-gray-600"}`}

@@ -29,6 +29,23 @@ interface IconProps {
 }
 
 /**
+ * Verification Badge Icon Component
+ * Custom blue verification tick icon similar to Facebook's verified badge
+ * Used to indicate verified profile status
+ */
+export const VerificationBadgeIcon: React.FC<IconProps> = ({ size = 16, className = "" }) => (
+  <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor" className={className} aria-hidden="true">
+    {/* Blue circular background */}
+    <circle cx="12" cy="12" r="12" fill="#1877F2" />
+    {/* White checkmark */}
+    <path
+      d="M9.75 15.02l-2.47-2.47a.75.75 0 0 0-1.06 1.06l3 3a.75.75 0 0 0 1.06 0l7.5-7.5a.75.75 0 0 0-1.06-1.06L9.75 15.02z"
+      fill="white"
+    />
+  </svg>
+)
+
+/**
  * GitHub Icon Component
  * Custom SVG icon for GitHub with proper styling
  */
