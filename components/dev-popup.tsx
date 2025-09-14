@@ -124,7 +124,7 @@ export default function DevPopup({ isDarkMode }: DevPopupProps) {
                   </li>
                   <li className="flex items-start">
                     <span className="mr-2 text-yellow-500">⚠</span>
-                    Commercial use requires authors permission
+                    Commercial use requires authors permission {/* Fixed unescaped apostrophe that was causing ESLint error */}
                   </li>
                   <li className="flex items-start">
                     <span className="mr-2 text-red-500">✗</span>
@@ -166,3 +166,5 @@ export default function DevPopup({ isDarkMode }: DevPopupProps) {
     </AnimatePresence>
   )
 }
+
+/** End DevPopup */
