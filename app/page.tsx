@@ -47,7 +47,7 @@ import type React from "react"
 import { useState, useEffect, useRef } from "react"
 import Image from "next/image"
 import { motion, AnimatePresence } from "framer-motion"
-import { ChevronLeft, ChevronRight, X, Play, Sun, Moon } from "lucide-react"
+import { ChevronLeft, ChevronRight, X, Play, Sun, Moon, Settings } from "lucide-react"
 import {
   GitHubIcon,
   PatreonIcon,
@@ -57,6 +57,7 @@ import {
   EmailIcon,
   VerificationBadgeIcon,
 } from "@/components/social-icons"
+import DevPopup from "@/components/dev-popup"
 
 /*
  * Extended Social Media Icons Import
@@ -273,8 +274,8 @@ const socialLinks = [
 export default function HomePage() {
   // State management for various UI components
   // Track both system theme and user override
-  const [systemTheme, setSystemTheme] = useState(false) // System preference
-  const [userThemeOverride, setUserThemeOverride] = useState<boolean | null>(null) // User manual override
+  const [themeMode, setThemeMode] = useState<"light" | "dark" | "system">("system")
+  const [systemTheme, setSystemTheme] = useState(false) // System preference (false = light, true = dark)
   const [currentSlide, setCurrentSlide] = useState(0)
   const [selectedBlog, setSelectedBlog] = useState<(typeof blogData)[0] | null>(null)
   const [isAutoPlaying, setIsAutoPlaying] = useState(true)
@@ -288,22 +289,44 @@ export default function HomePage() {
   const minSwipeDistance = 50
 
   // Computed theme: user override takes precedence, fallback to system
-  const isDarkMode = userThemeOverride !== null ? userThemeOverride : systemTheme
+  const isDarkMode = themeMode === "dark" || (themeMode === "system" && systemTheme)
+
+  /**
+   * Cookie utility functions for theme persistence
+   * Using cookies for better SSR compatibility and production-level persistence
+   */
+  const setCookie = (name: string, value: string, days = 365) => {
+    const expires = new Date()
+    expires.setTime(expires.getTime() + days * 24 * 60 * 60 * 1000)
+    document.cookie = `${name}=${value};expires=${expires.toUTCString()};path=/;SameSite=Lax`
+  }
+
+  const getCookie = (name: string): string | null => {
+    const nameEQ = name + "="
+    const ca = document.cookie.split(";")
+    for (let i = 0; i < ca.length; i++) {
+      let c = ca[i]
+      while (c.charAt(0) === " ") c = c.substring(1, c.length)
+      if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length)
+    }
+    return null
+  }
 
   /**
    * System Theme Detection and Live Updates
-   * This effect sets up a listener for system theme changes
-   * System theme is always tracked, but user can override it manually
+   * This effect sets up a listener for system theme changes and loads saved theme preference
    */
   useEffect(() => {
+    // Load saved theme preference from cookie
+    const savedTheme = getCookie("theme-preference") as "light" | "dark" | "system" | null
+    if (savedTheme && ["light", "dark", "system"].includes(savedTheme)) {
+      setThemeMode(savedTheme)
+    }
+
     // Function to check and update system theme
     const updateSystemTheme = () => {
       const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches
       setSystemTheme(prefersDark)
-
-      // Apply theme to DOM (considering user override)
-      const effectiveTheme = userThemeOverride !== null ? userThemeOverride : prefersDark
-      document.documentElement.classList.toggle("dark", effectiveTheme)
     }
 
     // Set initial system theme
@@ -315,11 +338,6 @@ export default function HomePage() {
     // Handle system theme changes
     const handleSystemThemeChange = (e: MediaQueryListEvent) => {
       setSystemTheme(e.matches)
-
-      // If user hasn't overridden, apply system theme
-      if (userThemeOverride === null) {
-        document.documentElement.classList.toggle("dark", e.matches)
-      }
     }
 
     // Add event listener for system theme changes
@@ -329,30 +347,67 @@ export default function HomePage() {
     return () => {
       mediaQuery.removeEventListener("change", handleSystemThemeChange)
     }
-  }, [userThemeOverride]) // Re-run when user override changes
+  }, [])
 
   /**
-   * Apply theme changes when user override changes
+   * Apply theme changes to DOM when theme mode or system preference changes
    */
   useEffect(() => {
-    const effectiveTheme = userThemeOverride !== null ? userThemeOverride : systemTheme
-    document.documentElement.classList.toggle("dark", effectiveTheme)
-  }, [userThemeOverride, systemTheme])
+    const shouldBeDark = themeMode === "dark" || (themeMode === "system" && systemTheme)
+    document.documentElement.classList.toggle("dark", shouldBeDark)
+  }, [themeMode, systemTheme])
 
   /**
-   * Toggle theme function - allows manual user override
-   * Cycles through: System -> Light -> Dark -> System
+   * Three-state theme toggle function
+   * Cycles through: Light (Moon) -> Dark (Settings) -> System (Sun) -> Light (Moon)
+   * Each state persists across browser refreshes using cookies
    */
   const toggleTheme = () => {
-    if (userThemeOverride === null) {
-      // Currently following system, switch to opposite of system
-      setUserThemeOverride(!systemTheme)
-    } else if (userThemeOverride === !systemTheme) {
-      // Currently overriding to opposite of system, switch to same as system
-      setUserThemeOverride(systemTheme)
+    let newTheme: "light" | "dark" | "system"
+
+    if (themeMode === "light") {
+      // Light -> Dark (Moon icon clicked, go to dark)
+      newTheme = "dark"
+    } else if (themeMode === "dark") {
+      // Dark -> System (Settings icon clicked, go to system)
+      newTheme = "system"
     } else {
-      // Currently overriding to same as system, go back to following system
-      setUserThemeOverride(null)
+      // System -> Light (Sun icon clicked, go to light)
+      newTheme = "light"
+    }
+
+    setThemeMode(newTheme)
+    setCookie("theme-preference", newTheme) // Persist theme preference
+  }
+
+  /**
+   * Get the appropriate icon for current theme state
+   * Shows the NEXT state icon (what will happen when clicked)
+   * Light mode shows Moon (next: dark), Dark mode shows Settings (next: system), System shows Sun (next: light)
+   */
+  const getThemeIcon = () => {
+    if (themeMode === "light") {
+      // Light mode -> next is dark, so show Moon
+      return <Moon size={20} />
+    } else if (themeMode === "dark") {
+      // Dark mode -> next is system, so show Settings
+      return <Settings size={20} />
+    } else {
+      // System mode -> next is light, so show Sun
+      return <Sun size={20} />
+    }
+  }
+
+  /**
+   * Get appropriate aria-label for theme button based on current state
+   */
+  const getThemeAriaLabel = () => {
+    if (themeMode === "light") {
+      return "Switch to dark theme"
+    } else if (themeMode === "dark") {
+      return "Switch to system theme"
+    } else {
+      return "Switch to light theme"
     }
   }
 
@@ -468,9 +523,10 @@ export default function HomePage() {
         }`}
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
-        aria-label="Toggle theme"
+        aria-label={getThemeAriaLabel()}
+        title={`Current: ${themeMode} theme`}
       >
-        {isDarkMode ? <Moon size={20} /> : <Sun size={20} />}
+        {getThemeIcon()}
       </motion.button>
 
       {/* Main content container */}
@@ -791,7 +847,7 @@ export default function HomePage() {
                   <h2 className={`mb-2 text-xl font-bold sm:text-2xl ${isDarkMode ? "text-white" : "text-gray-800"}`}>
                     {selectedBlog.title}
                   </h2>
-                  <p className={`text-sm opacity-70 ${isDarkMode ? "text-gray-300" : "text-gray-600"}`}>
+                  <p className={`text-sm opacity-70 ${isDarkMode ? "text-gray-300" : "text-gray-700"}`}>
                     by{" "}
                     <strong>
                       <a
@@ -832,6 +888,9 @@ export default function HomePage() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      {/* DevPopup Component */}
+      <DevPopup isDarkMode={isDarkMode} />
     </div>
   )
 }
