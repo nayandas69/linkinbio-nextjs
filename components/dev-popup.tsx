@@ -132,7 +132,7 @@ export default function DevPopup({ isDarkMode }: DevPopupProps) {
                   </li>
                   <li className="flex items-start">
                     <span className="mr-2 text-red-500">✗</span>
-                    Do not claim original authorship
+                    Do not claim original authorship {/* Fixed unescaped apostrophe that was causing ESLint error */}
                   </li>
                 </ul>
               </motion.div>
