@@ -124,7 +124,7 @@ export default function DevPopup({ isDarkMode }: DevPopupProps) {
                   </li>
                   <li className="flex items-start">
                     <span className="mr-2 text-yellow-500">⚠</span>
-                    Commercial use requires author's permission
+                    Commercial use requires authors permission
                   </li>
                   <li className="flex items-start">
                     <span className="mr-2 text-red-500">✗</span>
