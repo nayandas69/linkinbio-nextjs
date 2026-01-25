@@ -1,6 +1,6 @@
 {
   "name": "linkinbio-nextjs",
-  "version": "1.0.2",
+  "version": "0.1.0",
   "description": "Modern Link in Bio portfolio built with Next.js, featuring glassmorphism design and smooth animations",
   "private": true,
   "scripts": {
@@ -58,7 +58,6 @@
     "url": "https://github.com/nayandas69/linkinbio-nextjs.git"
   },
   "engines": {
-    "node": ">=18.0.0",
-    "npm": ">=8.0.0"
+    "node": "24.x"
   }
 }
