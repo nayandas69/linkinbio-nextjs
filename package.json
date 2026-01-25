@@ -17,7 +17,7 @@
     "@vercel/speed-insights": "^1.0.12",
     "framer-motion": "^10.16.0",
     "js-cookie": "^3.0.5",
-    "lucide-react": "^0.294.0",
+    "lucide-react": "^0.563.0",
     "next": "^14.2.30",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
