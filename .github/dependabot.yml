@@ -1,0 +1,85 @@
+# Dependabot configuration for linkinbio-nextjs
+# Docs: https://docs.github.com/en/code-security/dependabot/dependabot-version-updates
+
+version: 2
+updates:
+  # NPM dependencies only
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "09:00"
+      timezone: "Asia/Dhaka"
+    open-pull-requests-limit: 10
+    commit-message:
+      prefix: "chore(deps)"
+      include: "scope"
+    labels:
+      - "dependencies"
+      - "npm"
+    reviewers:
+      - "nayandas69"
+    assignees:
+      - "nayandas69"
+    groups:
+      # Production dependencies
+      production-dependencies:
+        patterns:
+          - "*"
+        exclude-patterns:
+          - "@types/*"
+          - "eslint*"
+          - "prettier*"
+          - "typescript"
+        update-types:
+          - "minor"
+          - "patch"
+      # Dev dependencies
+      dev-dependencies:
+        patterns:
+          - "@types/*"
+          - "eslint*"
+          - "prettier*"
+          - "typescript"
+        update-types:
+          - "minor"
+          - "patch"
+      # Next.js ecosystem
+      nextjs:
+        patterns:
+          - "next"
+          - "next-*"
+          - "@next/*"
+        update-types:
+          - "minor"
+          - "patch"
+      # React ecosystem
+      react:
+        patterns:
+          - "react"
+          - "react-dom"
+          - "@types/react"
+          - "@types/react-dom"
+        update-types:
+          - "minor"
+          - "patch"
+      # Vercel & analytics
+      vercel:
+        patterns:
+          - "@vercel/*"
+        update-types:
+          - "minor"
+          - "patch"
+      # UI & animations
+      ui:
+        patterns:
+          - "framer-motion"
+          - "lucide-react"
+        update-types:
+          - "minor"
+          - "patch"
+    ignore:
+      # Ignore major version updates (manual review)
+      - dependency-name: "*"
+        update-types: ["version-update:semver-major"]
