@@ -5,16 +5,12 @@
  * - Image optimization and external domains
  * - Performance improvements
  * - Security headers
- * - Build optimizations
  */
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   // Enable React strict mode for better development experience
   reactStrictMode: true,
-
-  // Enable SWC minification for better performance
-  swcMinify: true,
 
   // Image optimization configuration
   images: {
@@ -33,7 +29,11 @@ const nextConfig = {
         port: "",
         pathname: "/**",
       },
-      // Add any other external domains you use here
+      // Allow all HTTPS domains
+      {
+        protocol: "https",
+        hostname: "**",
+      },
     ],
 
     // Image formats to support
@@ -96,26 +96,10 @@ const nextConfig = {
     ]
   },
 
-  // Webpack configuration customization
-  webpack: (config, { buildId, dev, isServer, defaultLoaders, webpack }) => {
-    // Optimize bundle size
-    if (!dev && !isServer) {
-      config.optimization.splitChunks.chunks = "all"
-    }
-
-    return config
-  },
-
   // TypeScript configuration
   typescript: {
     // Type checking is handled by the build process
     ignoreBuildErrors: false,
-  },
-
-  // ESLint configuration
-  eslint: {
-    // Run ESLint during builds
-    ignoreDuringBuilds: false,
   },
 
   // Trailing slash configuration
