@@ -1,6 +1,6 @@
 {
   "name": "linkinbio-nextjs",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Modern Link in Bio portfolio built with Next.js, featuring glassmorphism design and smooth animations",
   "private": true,
   "scripts": {
@@ -18,7 +18,7 @@
     "framer-motion": "^10.16.0",
     "js-cookie": "^3.0.5",
     "lucide-react": "^0.563.0",
-    "next": "^14.2.30",
+    "next": "^16.1.6",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "sharp": "^0.34.3"
@@ -29,11 +29,12 @@
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
     "autoprefixer": "^10.0.0",
-    "eslint": "^8.0.0",
-    "eslint-config-next": "^14.0.0",
+    "eslint": "^9.39.2",
+    "eslint-config-next": "^16.1.6",
+    "eslint-plugin-react-hooks": "^7.0.1",
+    "postcss": "^8.0.0",
     "prettier": "^3.4.2",
     "prettier-plugin-tailwindcss": "^0.7.2",
-    "postcss": "^8.0.0",
     "tailwindcss": "^3.3.0",
     "typescript": "^5.0.0"
   },

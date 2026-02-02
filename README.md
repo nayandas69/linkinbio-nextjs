@@ -1,9 +1,6 @@
 # Link in Bio - Modern Portfolio
 
-A stunning, modern link-in-bio portfolio built with **Next.js 14**, featuring
-glassmorphism design, smooth animations, and responsive layout. Perfect for
-content creators, developers, and professionals who want to showcase their
-social presence and latest content.
+This link-in-bio protfolio tempalate is featuring your social links with blog carousel powered by Blogverse API. It includes a verified badge, dark/light theme toggle, and glassmorphism effects for a sleek, modern look. 
 
 ## Pre-view
 
@@ -12,7 +9,7 @@ social presence and latest content.
   <img src="https://raw.githubusercontent.com/nayandas69/linkinbio-nextjs/refs/heads/main/public/images/light.png" alt="Light Theme Preview" width="40%"/>
 </p>
 
-![Next Js](https://img.shields.io/badge/Next.js-14-black?style=for-the-badge&logo=next.js)
+![Next Js](https://img.shields.io/badge/Next.js-16-black?style=for-the-badge&logo=next.js)
 ![React](https://img.shields.io/badge/React-18-blue?style=for-the-badge&logo=react)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?style=for-the-badge&logo=typescript)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3-38B2AC?style=for-the-badge&logo=tailwind-css)
@@ -64,10 +61,11 @@ This project is licensed under a **Custom License**.
 ### **Blog Carousel**
 
 - **Auto-playing carousel** with manual navigation
-- **YouTube video integration** with modal popup
+- **Live blog integration** fetched from Blogverse API
 - **Touch gestures** touch/swipe navigation for blog carousel on mobile devices
 - **Category and duration badges**
 - **Smooth transitions** between slides
+- **Dynamic thumbnails** - displays real blog cover images when available
 
 ### **Analytics & Performance**
 
@@ -139,11 +137,32 @@ This project is licensed under a **Custom License**.
 6. **Open your browser** Navigate to
    [http://localhost:3000](http://localhost:3000)
 
+## Blog Integration
+
+### Current Version (v0.2.0)
+
+This version uses a **live API** to fetch blog posts dynamically from Blogverse:
+
+- **Blog API Endpoint**: `https://blogverse-five-omega.vercel.app/api/v1/posts/recent?limit=5`
+- **Blogverse Repository**: [blogverse](https://github.com/nayandas69/blogverse)
+- **Features**: Automatically displays your latest 5 blog posts with real-time updates
+- **Setup**: No additional configuration needed - works out of the box!
+
+### Previous Version (v0.1.0)
+
+If you want to use **hardcoded blog data** instead of the API:
+
+- **Checkout the tag**: `git checkout v0.1.0`
+- **Or view the release**: [https://github.com/nayandas69/linkinbio-nextjs/releases/tag/v0.1.0](https://github.com/nayandas69/linkinbio-nextjs/releases/tag/v0.1.0)
+- **Update blogData**: Modify the `blogData` array in `app/page.tsx`
+
+---
+
 ## Tech Stack
 
 | Technology                | Version | Purpose                         |
 | ------------------------- | ------- | ------------------------------- |
-| **Next.js**               | 14.0+   | React framework with App Router |
+| **Next.js**               | 16.0+   | React framework with App Router |
 | **React**                 | 18.0+   | UI library                      |
 | **TypeScript**            | 5.0+    | Type safety                     |
 | **Tailwind CSS**          | 3.3+    | Utility-first CSS framework     |
@@ -235,7 +254,12 @@ To activate additional social platforms:
 
 ### **Blog Posts**
 
-Update the `blogData` array with your content:
+**Note**: This version uses the Blogverse API to fetch blog posts automatically. 
+
+If you want to use hardcoded blog data:
+
+1. Checkout the v0.1.0 release
+2. Update the `blogData` array in `app/page.tsx`:
 
 ```typescript
 const blogData = [
