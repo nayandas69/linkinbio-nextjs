@@ -19,17 +19,21 @@ const nextConfig = {
       {
         protocol: "https",
         hostname: "linkinbio-nextjs-ashen.vercel.app",
-        port: "",
         pathname: "/**",
       },
-      // keep localhost for local dev
+      {
+        protocol: "https",
+        hostname: "blogverse-five-omega.vercel.app",
+        pathname: "/**",
+      },
+      // Allow localhost with any port for development
       {
         protocol: "http",
         hostname: "localhost",
-        port: "",
+        port: "3000",
         pathname: "/**",
       },
-      // Allow all HTTPS domains
+      // Allow all HTTPS domains as fallback
       {
         protocol: "https",
         hostname: "**",
