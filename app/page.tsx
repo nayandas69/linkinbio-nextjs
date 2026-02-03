@@ -90,7 +90,7 @@ let blogData: Array<{
   slug: string
   thumbnail: string | null
   category: string
-  duration: string
+  duration: string | null
 }> = []
 
 // Social media links configuration with custom icons (Currently showing 6 icons)
@@ -121,7 +121,7 @@ const socialLinks = [
   },
   {
     name: "Discord",
-    url: "https://discord.gg/skHyssu",
+    url: "https://discord.gg/u9XfHZN8K9",
     icon: DiscordIcon,
     color: "from-indigo-500 to-purple-600",
     hoverColor: "hover:from-indigo-400 hover:to-purple-500",
@@ -129,7 +129,7 @@ const socialLinks = [
   },
   {
     name: "Website",
-    url: "https://nayandas69.github.io/link-in-bio",
+    url: "https://blogverse-five-omega.vercel.app",
     icon: BriefcaseIcon,
     color: "from-emerald-500 to-teal-600",
     hoverColor: "hover:from-emerald-400 hover:to-teal-500",
@@ -412,7 +412,7 @@ export default function HomePage() {
         const data = await response.json()
 
         // Handle both direct array response and wrapped response format
-        const postsArray = Array.isArray(data) ? data : data.data || []
+        const postsArray = Array.isArray(data) ? data : data.posts || data.data || []
 
         if (!Array.isArray(postsArray) || postsArray.length === 0) {
           throw new Error("No blog posts found in API response")
@@ -420,16 +420,37 @@ export default function HomePage() {
 
         // Transform API data to match our blog structure
         const transformedBlogs = postsArray.map((post: any, index: number) => {
-          const minutes = Math.ceil((post.readingTime || 5) / 60)
-          const seconds = (post.readingTime || 5) % 60
-          const durationStr = `${minutes}:${String(seconds).padStart(2, "0")}`
+          // Calculate reading time - handle different formats from API
+          let durationStr = null
+          if (post.readingTime) {
+            const timeValue = typeof post.readingTime === "string" ? parseInt(post.readingTime) : post.readingTime
+
+            if (timeValue < 1000) {
+              const minutes = Math.max(1, Math.ceil(timeValue / 60))
+              durationStr = `${minutes}m read`
+            } else {
+              const minutes = Math.max(1, Math.ceil(timeValue / 60))
+              durationStr = `${minutes}m read`
+            }
+          }
+
+          // Construct full image URL if cover exists
+          let thumbnailUrl = null
+          if (post.frontmatter?.cover) {
+            const coverPath = post.frontmatter.cover
+            if (coverPath.startsWith("/")) {
+              thumbnailUrl = `https://blogverse-five-omega.vercel.app${coverPath}`
+            } else {
+              thumbnailUrl = coverPath
+            }
+          }
 
           return {
             id: index + 1,
             title: post.frontmatter?.title || "Untitled",
             description: post.frontmatter?.description || post.excerpt || "",
             slug: post.slug || `blog-${index}`,
-            thumbnail: post.frontmatter?.cover || null,
+            thumbnail: thumbnailUrl,
             category: post.frontmatter?.tags?.[0] || "General",
             duration: durationStr,
           }
@@ -439,7 +460,6 @@ export default function HomePage() {
         setBlogs(transformedBlogs)
         setCurrentSlide(0)
       } catch (error) {
-        console.error("Error fetching blogs:", error)
         setBlogs([])
       } finally {
         setIsLoadingBlogs(false)
@@ -757,7 +777,12 @@ export default function HomePage() {
                               <Play size={20} className="ml-1 text-gray-800 sm:h-6 sm:w-6" />
                             </div>
                           </div>
-                          {/* Category badge */}
+                        </div>
+                      )}
+
+                      {/* Category badge and reading time - position changes based on thumbnail */}
+                      {blog.thumbnail && (
+                        <>
                           <div
                             className={`absolute left-2 top-2 rounded-full px-2 py-1 text-xs font-medium sm:left-3 sm:top-3 ${
                               isDarkMode ? "bg-black/50 text-white" : "bg-white/80 text-gray-800"
@@ -765,19 +790,42 @@ export default function HomePage() {
                           >
                             {blog.category}
                           </div>
-                          {/* Duration badge */}
-                          <div
-                            className={`absolute right-2 top-2 rounded-full px-2 py-1 text-xs font-medium sm:right-3 sm:top-3 ${
-                              isDarkMode ? "bg-black/50 text-white" : "bg-white/80 text-gray-800"
-                            }`}
-                          >
-                            {blog.duration}
-                          </div>
-                        </div>
+                          {blog.duration && (
+                            <div
+                              className={`absolute right-2 top-2 rounded-full px-2 py-1 text-xs font-medium sm:right-3 sm:top-3 ${
+                                isDarkMode ? "bg-black/50 text-white" : "bg-white/80 text-gray-800"
+                              }`}
+                            >
+                              {blog.duration}
+                            </div>
+                          )}
+                        </>
                       )}
 
                       {/* Blog content */}
                       <div className={blog.thumbnail ? "p-3 sm:p-4" : "p-4 sm:p-5"}>
+                        {/* Show badges below title when no thumbnail */}
+                        {!blog.thumbnail && (
+                          <div className="mb-2 flex flex-wrap gap-2">
+                            <span
+                              className={`inline-block rounded-full px-2 py-1 text-xs font-medium ${
+                                isDarkMode ? "bg-black/50 text-white" : "bg-white/80 text-gray-800"
+                              }`}
+                            >
+                              {blog.category}
+                            </span>
+                            {blog.duration && (
+                              <span
+                                className={`inline-block rounded-full px-2 py-1 text-xs font-medium ${
+                                  isDarkMode ? "bg-black/50 text-white" : "bg-white/80 text-gray-800"
+                                }`}
+                              >
+                                {blog.duration}
+                              </span>
+                            )}
+                          </div>
+                        )}
+
                         <h3
                           className={`mb-2 line-clamp-2 text-sm font-semibold ${
                             isDarkMode ? "text-white" : "text-gray-800"
