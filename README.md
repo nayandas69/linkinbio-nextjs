@@ -139,7 +139,18 @@ This project is licensed under a **Custom License**.
 
 ## Blog Integration
 
-### Current Version (v0.2.0)
+### Current Version (v0.2.1)
+
+This version includes **minor fixes and improvements** over v0.2.0:
+
+- **Fixes & Enhancements**:
+  - Improved blog API handling, reading time format, and thumbnail URLs
+  - Added `metadataBase` to ensure correct SEO and social image URLs
+  - Allows proper rendering of blog thumbnails across all environments
+
+> Other features such as live API integration, automatic display of latest 5 posts, and setup remain the same as v0.2.0.
+
+### Previous Version (v0.2.0)
 
 This version uses a **live API** to fetch blog posts dynamically from Blogverse:
 
@@ -148,7 +159,7 @@ This version uses a **live API** to fetch blog posts dynamically from Blogverse:
 - **Features**: Automatically displays your latest 5 blog posts with real-time updates
 - **Setup**: No additional configuration needed - works out of the box!
 
-### Previous Version (v0.1.0)
+### Older Version (v0.1.0)
 
 If you want to use **hardcoded blog data** instead of the API:
 
