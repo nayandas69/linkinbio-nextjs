@@ -34,6 +34,7 @@ const poppins = Poppins({
 
 // SEO metadata configuration
 export const metadata: Metadata = {
+  metadataBase: new URL("https://linkinbio-nextjs-ashen.vercel.app"),
   title: "Link in Bio | Nayan Das - Portfolio & Social Links",
   description:
     "Crafting Code & Content for a Connected World. Explore my portfolio, latest blog posts, and connect with me across social platforms.",
@@ -160,7 +161,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 "https://github.com/nayandas69",
                 "https://youtube.com/@dasnayan69",
                 "https://patreon.com/NayanDas69",
-                "https://discord.gg/skHyssu",
+                "https://discord.gg/u9XfHZN8K9",
               ],
               jobTitle: "Web Developer & Content Creator",
               description: "Crafting Code & Content for a Connected World",
