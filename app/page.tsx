@@ -420,28 +420,25 @@ export default function HomePage() {
 
         // Transform API data to match our blog structure
         const transformedBlogs = postsArray.map((post: any, index: number) => {
-          // Calculate reading time - handle different formats from API
-          let durationStr = null
-          if (post.readingTime) {
-            const timeValue = typeof post.readingTime === "string" ? parseInt(post.readingTime) : post.readingTime
-
-            if (timeValue < 1000) {
-              const minutes = Math.max(1, Math.ceil(timeValue / 60))
-              durationStr = `${minutes}m read`
-            } else {
-              const minutes = Math.max(1, Math.ceil(timeValue / 60))
-              durationStr = `${minutes}m read`
-            }
-          }
+          // Blogverse API returns readingTime as a number in minutes (not seconds)
+          const readingTimeMinutes = Math.max(1, Math.ceil(post.readingTime || 1))
+          const durationStr = `${readingTimeMinutes}m read`
 
           // Construct full image URL if cover exists
           let thumbnailUrl = null
-          if (post.frontmatter?.cover) {
-            const coverPath = post.frontmatter.cover
-            if (coverPath.startsWith("/")) {
+          const coverPath = post.frontmatter?.cover || post.cover
+
+          if (coverPath) {
+            // Always use absolute URL for images from Blogverse API
+            if (coverPath.startsWith("http")) {
+              // Already a full URL
+              thumbnailUrl = coverPath
+            } else if (coverPath.startsWith("/")) {
+              // Relative path starting with /
               thumbnailUrl = `https://blogverse-five-omega.vercel.app${coverPath}`
             } else {
-              thumbnailUrl = coverPath
+              // Relative path without /
+              thumbnailUrl = `https://blogverse-five-omega.vercel.app/${coverPath}`
             }
           }
 
@@ -770,6 +767,7 @@ export default function HomePage() {
                             sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                             className="object-cover transition-transform duration-300 group-hover:scale-105"
                             priority={index === 0}
+                            unoptimized
                           />
                           {/* Play button overlay */}
                           <div className="absolute inset-0 flex items-center justify-center bg-black/20 opacity-0 transition-opacity duration-300 hover:opacity-100">
