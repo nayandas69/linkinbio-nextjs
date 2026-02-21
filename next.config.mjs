@@ -33,11 +33,6 @@ const nextConfig = {
         port: "3000",
         pathname: "/**",
       },
-      // Allow all HTTPS domains as fallback
-      {
-        protocol: "https",
-        hostname: "**",
-      },
     ],
 
     // Image formats to support
