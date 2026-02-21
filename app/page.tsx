@@ -767,7 +767,6 @@ export default function HomePage() {
                             sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                             className="object-cover transition-transform duration-300 group-hover:scale-105"
                             priority={index === 0}
-                            unoptimized
                           />
                           {/* Play button overlay */}
                           <div className="absolute inset-0 flex items-center justify-center bg-black/20 opacity-0 transition-opacity duration-300 hover:opacity-100">
