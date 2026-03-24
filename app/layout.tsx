@@ -57,7 +57,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://github.com/nayandas69",
+    url: "https://linkinbio-nextjs-ashen.vercel.app",
     title: "Link in Bio | Nayan Das",
     description: "Crafting Code & Content for a Connected World",
     siteName: "Nayan Das Portfolio",
@@ -122,8 +122,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <link rel="icon" href="/images/favicon.jpg" type="image/jpeg" />
         <link rel="apple-touch-icon" href="/images/favicon.jpg" />
 
-        {/* Google Search Console Verification */}
-        <meta name="google-site-verification" content={process.env.GOOGLE_VERIFICATION_CODE} />
+        {/* Google Search Console Verification - only rendered when env var is set */}
+        {process.env.GOOGLE_VERIFICATION_CODE && (
+          <meta name="google-site-verification" content={process.env.GOOGLE_VERIFICATION_CODE} />
+        )}
 
         {/* Theme color for mobile browsers */}
         <meta name="theme-color" content="#ffffff" />

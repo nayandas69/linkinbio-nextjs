@@ -28,7 +28,7 @@
  * - Auto-playing blog carousel with manual controls
  * - Modal for blog details with embedded YouTube videos
  * - Custom social media icons with hover effects
- * - Theme persistence using localStorage
+ * - Theme persistence using cookies
  * - We use api from Blogverse (https://blogverse-five-omega.vercel.app/api/v1/posts/recent) to fetch latest blogs.
  * - vercel speed-insights and analytics
  * - Note: This is a client-side component using Next.js App Router.
@@ -58,7 +58,7 @@ import {
 import { motion } from "framer-motion"
 import { ChevronLeft, ChevronRight, Moon, Play, Settings, Sun } from "lucide-react"
 import Image from "next/image"
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useState } from "react"
 
 /*
  * Extended Social Media Icons Import
@@ -82,8 +82,8 @@ import {
 } from "@/components/social-icons"
 */
 
-// Blog data structure - will be populated from API
-let blogData: Array<{
+// Blog data type
+type Blog = {
   id: number
   title: string
   description: string
@@ -91,7 +91,21 @@ let blogData: Array<{
   thumbnail: string | null
   category: string
   duration: string | null
-}> = []
+}
+
+// BlogPost type for API response items
+interface BlogPost {
+  readingTime?: number
+  frontmatter?: {
+    cover?: string
+    title?: string
+    description?: string
+    tags?: string[]
+  }
+  cover?: string
+  excerpt?: string
+  slug?: string
+}
 
 // Social media links configuration with custom icons (Currently showing 6 icons)
 const socialLinks = [
@@ -99,48 +113,36 @@ const socialLinks = [
     name: "GitHub",
     url: "https://github.com/nayandas69",
     icon: GitHubIcon,
-    color: "from-gray-700 to-gray-900",
-    hoverColor: "hover:from-gray-600 hover:to-gray-800",
     bgColor: "bg-gray-800",
   },
   {
     name: "Patreon",
     url: "https://patreon.com/NayanDas69",
     icon: PatreonIcon,
-    color: "from-orange-500 to-red-600",
-    hoverColor: "hover:from-orange-400 hover:to-red-500",
     bgColor: "bg-orange-500",
   },
   {
     name: "YouTube",
     url: "https://youtube.com/@dasnayan69",
     icon: YouTubeIcon,
-    color: "from-red-500 to-red-700",
-    hoverColor: "hover:from-red-400 hover:to-red-600",
     bgColor: "bg-red-600",
   },
   {
     name: "Discord",
     url: "https://discord.gg/u9XfHZN8K9",
     icon: DiscordIcon,
-    color: "from-indigo-500 to-purple-600",
-    hoverColor: "hover:from-indigo-400 hover:to-purple-500",
     bgColor: "bg-indigo-600",
   },
   {
     name: "Website",
     url: "https://blogverse-five-omega.vercel.app",
     icon: BriefcaseIcon,
-    color: "from-emerald-500 to-teal-600",
-    hoverColor: "hover:from-emerald-400 hover:to-teal-500",
     bgColor: "bg-emerald-600",
   },
   {
     name: "Email",
     url: "mailto:nayanchandradas@hotmail.com",
     icon: EmailIcon,
-    color: "from-blue-500 to-cyan-600",
-    hoverColor: "hover:from-blue-400 hover:to-cyan-500",
     bgColor: "bg-blue-600",
   },
   /*
@@ -255,16 +257,13 @@ export default function HomePage() {
   const [themeMode, setThemeMode] = useState<"light" | "dark" | "system">("system")
   const [systemTheme, setSystemTheme] = useState(false) // System preference (false = light, true = dark)
   const [currentSlide, setCurrentSlide] = useState(0)
-  const [blogs, setBlogs] = useState(blogData)
+  const [blogs, setBlogs] = useState<Blog[]>([])
   const [isAutoPlaying, setIsAutoPlaying] = useState(true)
   const [isLoadingBlogs, setIsLoadingBlogs] = useState(true)
-  const [selectedBlog, setSelectedBlog] = useState<(typeof blogData)[0] | null>(null)
 
   // Touch/swipe handling for mobile
   const [touchStart, setTouchStart] = useState<number | null>(null)
   const [touchEnd, setTouchEnd] = useState<number | null>(null)
-  const carouselRef = useRef<HTMLDivElement>(null)
-
   // Minimum swipe distance (in px) to trigger slide change
   const minSwipeDistance = 50
 
@@ -419,7 +418,7 @@ export default function HomePage() {
         }
 
         // Transform API data to match our blog structure
-        const transformedBlogs = postsArray.map((post: any, index: number) => {
+        const transformedBlogs = postsArray.map((post: BlogPost, index: number) => {
           // Blogverse API returns readingTime as a number in minutes (not seconds)
           const readingTimeMinutes = Math.max(1, Math.ceil(post.readingTime || 1))
           const durationStr = `${readingTimeMinutes}m read`
@@ -453,7 +452,6 @@ export default function HomePage() {
           }
         })
 
-        blogData = transformedBlogs
         setBlogs(transformedBlogs)
         setCurrentSlide(0)
       } catch (error) {
@@ -497,19 +495,12 @@ export default function HomePage() {
   }
 
   /**
-   * Open blog in new tab or navigate to blog page
+   * Open blog in new tab
    */
-  const openBlog = (blog: (typeof blogData)[0]) => {
+  const openBlog = (blog: Blog) => {
     if (blog.slug) {
       window.open(`https://blogverse-five-omega.vercel.app/blog/${blog.slug}`, "_blank")
     }
-  }
-
-  /**
-   * Close the blog modal and restore scrolling
-   */
-  const closeBlogModal = () => {
-    document.body.style.overflow = "auto" // Restore background scrolling
   }
 
   /**
@@ -586,15 +577,6 @@ export default function HomePage() {
 
       {/* Main content container */}
       <div className="relative z-10 flex min-h-screen items-center justify-center p-4">
-        {/* Hidden Mastodon verification link */}
-        <a
-          rel="me"
-          href="https://mastodon.social/@nayandas"
-          className="sr-only"
-          aria-label="Mastodon profile verification"
-        >
-          Mastodon
-        </a>
         {/* Main card container with glassmorphism effect */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -731,165 +713,187 @@ export default function HomePage() {
               Latest Blogs
             </h2>
 
-            {/* Blog Carousel Container */}
-            <div
-              className="relative overflow-hidden rounded-2xl"
-              ref={carouselRef}
-              onTouchStart={handleTouchStart}
-              onTouchMove={handleTouchMove}
-              onTouchEnd={handleTouchEnd}
-            >
-              <motion.div
-                className="flex touch-pan-y select-none transition-transform duration-500 ease-in-out"
-                style={{ transform: `translateX(-${currentSlide * 100}%)` }}
-                onMouseEnter={() => setIsAutoPlaying(false)}
-                onMouseLeave={() => setIsAutoPlaying(true)}
+            {/* Blog Carousel or Loading Skeleton */}
+            {isLoadingBlogs ? (
+              <div
+                className={`animate-pulse rounded-2xl border p-4 ${
+                  isDarkMode ? "border-white/10 bg-white/5" : "border-white/40 bg-white/30"
+                }`}
               >
-                {blogs.map((blog, index) => (
-                  <div key={blog.id} className="w-full flex-shrink-0">
-                    <motion.div
-                      className={`relative cursor-pointer overflow-hidden rounded-2xl border backdrop-blur-md ${
-                        isDarkMode
-                          ? "border-white/10 bg-white/5 hover:bg-white/10"
-                          : "border-white/40 bg-white/30 hover:bg-white/40"
-                      } transition-all duration-300`}
-                      onClick={() => openBlog(blog)}
-                      whileHover={{ scale: 1.02 }}
-                      whileTap={{ scale: 0.98 }}
-                    >
-                      {/* Blog thumbnail with play button overlay - only show if blog has a cover image */}
-                      {blog.thumbnail && (
-                        <div className="relative h-40 overflow-hidden sm:h-48">
-                          <Image
-                            src={blog.thumbnail || "/placeholder.svg"}
-                            alt={blog.title}
-                            fill
-                            sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                            className="object-cover transition-transform duration-300 group-hover:scale-105"
-                            priority={index === 0}
-                          />
-                          {/* Play button overlay */}
-                          <div className="absolute inset-0 flex items-center justify-center bg-black/20 opacity-0 transition-opacity duration-300 hover:opacity-100">
-                            <div className="rounded-full bg-white/90 p-2 sm:p-3">
-                              <Play size={20} className="ml-1 text-gray-800 sm:h-6 sm:w-6" />
-                            </div>
-                          </div>
-                        </div>
-                      )}
-
-                      {/* Category badge and reading time - position changes based on thumbnail */}
-                      {blog.thumbnail && (
-                        <>
-                          <div
-                            className={`absolute left-2 top-2 rounded-full px-2 py-1 text-xs font-medium sm:left-3 sm:top-3 ${
-                              isDarkMode ? "bg-black/50 text-white" : "bg-white/80 text-gray-800"
-                            }`}
-                          >
-                            {blog.category}
-                          </div>
-                          {blog.duration && (
-                            <div
-                              className={`absolute right-2 top-2 rounded-full px-2 py-1 text-xs font-medium sm:right-3 sm:top-3 ${
-                                isDarkMode ? "bg-black/50 text-white" : "bg-white/80 text-gray-800"
-                              }`}
-                            >
-                              {blog.duration}
+                <div className={`mb-3 h-40 rounded-xl sm:h-48 ${isDarkMode ? "bg-white/10" : "bg-gray-200/60"}`} />
+                <div className={`mb-2 h-4 w-3/4 rounded ${isDarkMode ? "bg-white/10" : "bg-gray-200/60"}`} />
+                <div className={`h-3 w-1/2 rounded ${isDarkMode ? "bg-white/10" : "bg-gray-200/60"}`} />
+              </div>
+            ) : blogs.length === 0 ? (
+              <div
+                className={`rounded-2xl border p-6 text-center ${
+                  isDarkMode ? "border-white/10 bg-white/5 text-gray-400" : "border-white/40 bg-white/30 text-gray-500"
+                }`}
+              >
+                <p className="text-sm">No blog posts available.</p>
+              </div>
+            ) : (
+              <>
+                {/* Blog Carousel Container */}
+                <div
+                  className="relative overflow-hidden rounded-2xl"
+                  onTouchStart={handleTouchStart}
+                  onTouchMove={handleTouchMove}
+                  onTouchEnd={handleTouchEnd}
+                >
+                  <motion.div
+                    className="flex touch-pan-y select-none transition-transform duration-500 ease-in-out"
+                    style={{ transform: `translateX(-${currentSlide * 100}%)` }}
+                    onMouseEnter={() => setIsAutoPlaying(false)}
+                    onMouseLeave={() => setIsAutoPlaying(true)}
+                  >
+                    {blogs.map((blog, index) => (
+                      <div key={blog.id} className="w-full flex-shrink-0">
+                        <motion.div
+                          className={`relative cursor-pointer overflow-hidden rounded-2xl border backdrop-blur-md ${
+                            isDarkMode
+                              ? "border-white/10 bg-white/5 hover:bg-white/10"
+                              : "border-white/40 bg-white/30 hover:bg-white/40"
+                          } transition-all duration-300`}
+                          onClick={() => openBlog(blog)}
+                          whileHover={{ scale: 1.02 }}
+                          whileTap={{ scale: 0.98 }}
+                        >
+                          {/* Blog thumbnail with play button overlay - only show if blog has a cover image */}
+                          {blog.thumbnail && (
+                            <div className="relative h-40 overflow-hidden sm:h-48">
+                              <Image
+                                src={blog.thumbnail}
+                                alt={blog.title}
+                                fill
+                                sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                                className="object-cover transition-transform duration-300 group-hover:scale-105"
+                                priority={index === 0}
+                              />
+                              {/* Play button overlay */}
+                              <div className="absolute inset-0 flex items-center justify-center bg-black/20 opacity-0 transition-opacity duration-300 hover:opacity-100">
+                                <div className="rounded-full bg-white/90 p-2 sm:p-3">
+                                  <Play size={20} className="ml-1 text-gray-800 sm:h-6 sm:w-6" />
+                                </div>
+                              </div>
                             </div>
                           )}
-                        </>
-                      )}
 
-                      {/* Blog content */}
-                      <div className={blog.thumbnail ? "p-3 sm:p-4" : "p-4 sm:p-5"}>
-                        {/* Show badges below title when no thumbnail */}
-                        {!blog.thumbnail && (
-                          <div className="mb-2 flex flex-wrap gap-2">
-                            <span
-                              className={`inline-block rounded-full px-2 py-1 text-xs font-medium ${
-                                isDarkMode ? "bg-black/50 text-white" : "bg-white/80 text-gray-800"
-                              }`}
-                            >
-                              {blog.category}
-                            </span>
-                            {blog.duration && (
-                              <span
-                                className={`inline-block rounded-full px-2 py-1 text-xs font-medium ${
+                          {/* Category badge and reading time - position changes based on thumbnail */}
+                          {blog.thumbnail && (
+                            <>
+                              <div
+                                className={`absolute left-2 top-2 rounded-full px-2 py-1 text-xs font-medium sm:left-3 sm:top-3 ${
                                   isDarkMode ? "bg-black/50 text-white" : "bg-white/80 text-gray-800"
                                 }`}
                               >
-                                {blog.duration}
-                              </span>
+                                {blog.category}
+                              </div>
+                              {blog.duration && (
+                                <div
+                                  className={`absolute right-2 top-2 rounded-full px-2 py-1 text-xs font-medium sm:right-3 sm:top-3 ${
+                                    isDarkMode ? "bg-black/50 text-white" : "bg-white/80 text-gray-800"
+                                  }`}
+                                >
+                                  {blog.duration}
+                                </div>
+                              )}
+                            </>
+                          )}
+
+                          {/* Blog content */}
+                          <div className={blog.thumbnail ? "p-3 sm:p-4" : "p-4 sm:p-5"}>
+                            {/* Show badges below title when no thumbnail */}
+                            {!blog.thumbnail && (
+                              <div className="mb-2 flex flex-wrap gap-2">
+                                <span
+                                  className={`inline-block rounded-full px-2 py-1 text-xs font-medium ${
+                                    isDarkMode ? "bg-black/50 text-white" : "bg-white/80 text-gray-800"
+                                  }`}
+                                >
+                                  {blog.category}
+                                </span>
+                                {blog.duration && (
+                                  <span
+                                    className={`inline-block rounded-full px-2 py-1 text-xs font-medium ${
+                                      isDarkMode ? "bg-black/50 text-white" : "bg-white/80 text-gray-800"
+                                    }`}
+                                  >
+                                    {blog.duration}
+                                  </span>
+                                )}
+                              </div>
                             )}
+
+                            <h3
+                              className={`mb-2 line-clamp-2 text-sm font-semibold ${
+                                isDarkMode ? "text-white" : "text-gray-800"
+                              }`}
+                            >
+                              {blog.title}
+                            </h3>
+                            <p
+                              className={`line-clamp-2 text-xs opacity-70 ${
+                                isDarkMode ? "text-gray-300" : "text-gray-600"
+                              }`}
+                            >
+                              {blog.description}
+                            </p>
                           </div>
-                        )}
-
-                        <h3
-                          className={`mb-2 line-clamp-2 text-sm font-semibold ${
-                            isDarkMode ? "text-white" : "text-gray-800"
-                          }`}
-                        >
-                          {blog.title}
-                        </h3>
-                        <p
-                          className={`line-clamp-2 text-xs opacity-70 ${
-                            isDarkMode ? "text-gray-300" : "text-gray-600"
-                          }`}
-                        >
-                          {blog.description}
-                        </p>
+                        </motion.div>
                       </div>
-                    </motion.div>
-                  </div>
-                ))}
-              </motion.div>
+                    ))}
+                  </motion.div>
 
-              {/* Carousel navigation buttons */}
-              <button
-                onClick={prevSlide}
-                className={`absolute left-2 top-1/2 -translate-y-1/2 transform rounded-full border p-1.5 backdrop-blur-md transition-all duration-300 sm:p-2 ${
-                  isDarkMode
-                    ? "border-white/20 bg-white/10 text-white hover:bg-white/20"
-                    : "border-white/40 bg-white/30 text-gray-800 hover:bg-white/40"
-                }`}
-                aria-label="Previous blog"
-              >
-                <ChevronLeft size={14} className="sm:h-4 sm:w-4" />
-              </button>
-              <button
-                onClick={nextSlide}
-                className={`absolute right-2 top-1/2 -translate-y-1/2 transform rounded-full border p-1.5 backdrop-blur-md transition-all duration-300 sm:p-2 ${
-                  isDarkMode
-                    ? "border-white/20 bg-white/10 text-white hover:bg-white/20"
-                    : "border-white/40 bg-white/30 text-gray-800 hover:bg-white/40"
-                }`}
-                aria-label="Next blog"
-              >
-                <ChevronRight size={14} className="sm:h-4 sm:w-4" />
-              </button>
-            </div>
+                  {/* Carousel navigation buttons */}
+                  <button
+                    onClick={prevSlide}
+                    className={`absolute left-2 top-1/2 -translate-y-1/2 transform rounded-full border p-1.5 backdrop-blur-md transition-all duration-300 sm:p-2 ${
+                      isDarkMode
+                        ? "border-white/20 bg-white/10 text-white hover:bg-white/20"
+                        : "border-white/40 bg-white/30 text-gray-800 hover:bg-white/40"
+                    }`}
+                    aria-label="Previous blog"
+                  >
+                    <ChevronLeft size={14} className="sm:h-4 sm:w-4" />
+                  </button>
+                  <button
+                    onClick={nextSlide}
+                    className={`absolute right-2 top-1/2 -translate-y-1/2 transform rounded-full border p-1.5 backdrop-blur-md transition-all duration-300 sm:p-2 ${
+                      isDarkMode
+                        ? "border-white/20 bg-white/10 text-white hover:bg-white/20"
+                        : "border-white/40 bg-white/30 text-gray-800 hover:bg-white/40"
+                    }`}
+                    aria-label="Next blog"
+                  >
+                    <ChevronRight size={14} className="sm:h-4 sm:w-4" />
+                  </button>
+                </div>
 
-            {/* Carousel dots indicator */}
-            <div className="mt-3 flex justify-center space-x-2 sm:mt-4">
-              {blogs.map((_, index) => (
-                <button
-                  key={index}
-                  onClick={() => {
-                    setCurrentSlide(index)
-                    setIsAutoPlaying(false)
-                  }}
-                  className={`h-2 w-2 rounded-full transition-all duration-300 ${
-                    index === currentSlide
-                      ? isDarkMode
-                        ? "bg-white"
-                        : "bg-gray-800"
-                      : isDarkMode
-                        ? "bg-white/30"
-                        : "bg-gray-400"
-                  }`}
-                  aria-label={`Go to slide ${index + 1}`}
-                />
-              ))}
-            </div>
+                {/* Carousel dots indicator */}
+                <div className="mt-3 flex justify-center space-x-2 sm:mt-4">
+                  {blogs.map((_, index) => (
+                    <button
+                      key={index}
+                      onClick={() => {
+                        setCurrentSlide(index)
+                        setIsAutoPlaying(false)
+                      }}
+                      className={`h-2 w-2 rounded-full transition-all duration-300 ${
+                        index === currentSlide
+                          ? isDarkMode
+                            ? "bg-white"
+                            : "bg-gray-800"
+                          : isDarkMode
+                            ? "bg-white/30"
+                            : "bg-gray-400"
+                      }`}
+                      aria-label={`Go to slide ${index + 1}`}
+                    />
+                  ))}
+                </div>
+              </>
+            )}
           </motion.div>
         </motion.div>
       </div>
